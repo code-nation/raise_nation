@@ -23,6 +23,7 @@ require("chart.js")
 require('./shared/demo/chart-area-demo')
 require('./shared/demo/chart-bar-demo')
 require('./shared/demo/chart-pie-demo')
+require('./shared/demo/datatables-demo')
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
