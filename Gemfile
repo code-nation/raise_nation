@@ -26,6 +26,8 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
+gem 'devise', '~> 4.7.2'
+
 group :test do
   gem 'shoulda-matchers', '~> 4.1', '>= 4.1.2'
   gem 'database_cleaner', '~> 1.7'
