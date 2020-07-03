@@ -1,0 +1,56 @@
+%h1.h3.mb-1.text-gray-800 Other Utilities
+%p.mb-4
+  Bootstrap's default utility classes can be found on the official
+  %a{:href => "https://getbootstrap.com/docs"} Bootstrap Documentation
+  page. The custom utilities below were created to extend this theme past the default utility classes built into Bootstrap's framework.
+/ Content Row
+.row
+  .col-lg-6
+    / Overflow Hidden
+    .card.mb-4
+      .card-header.py-3
+        %h6.m-0.font-weight-bold.text-primary Overflow Hidden Utilty
+      .card-body
+        Use
+        %code .o-hidden
+        to set the overflow property of any element to hidden.
+    / Progress Small
+    .card.mb-4
+      .card-header.py-3
+        %h6.m-0.font-weight-bold.text-primary Progress Small Utility
+      .card-body
+        .mb-1.small Normal Progress Bar
+        .progress.mb-4
+          .progress-bar{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "75", :role => "progressbar", :style => "width: 75%"}
+        .mb-1.small Small Progress Bar
+        .progress.progress-sm.mb-2
+          .progress-bar{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "75", :role => "progressbar", :style => "width: 75%"}
+        Use the
+        %code .progress-sm
+        class along with
+        %code .progress
+    / Dropdown No Arrow
+    .card.mb-4
+      .card-header.py-3
+        %h6.m-0.font-weight-bold.text-primary Dropdown - No Arrow
+      .card-body
+        .dropdown.no-arrow.mb-4
+          %button#dropdownMenuButton.btn.btn-secondary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+            Dropdown (no arrow)
+          .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
+            %a.dropdown-item{:href => "#"} Action
+            %a.dropdown-item{:href => "#"} Another action
+            %a.dropdown-item{:href => "#"} Something else here
+        Add the
+        %code .no-arrow
+        class alongside the
+        %code .dropdown
+  .col-lg-6
+    / Roitation Utilities
+    .card
+      .card-header.py-3
+        %h6.m-0.font-weight-bold.text-primary Rotation Utilities
+      .card-body.text-center
+        .bg-primary.text-white.p-3.rotate-15.d-inline-block.my-4 .rotate-15
+        %hr/
+        .bg-primary.text-white.p-3.rotate-n-15.d-inline-block.my-4 .rotate-n-15

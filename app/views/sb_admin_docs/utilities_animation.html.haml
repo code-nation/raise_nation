@@ -1,0 +1,57 @@
+%h1.h3.mb-1.text-gray-800 Animation Utilities
+%p.mb-4
+  Bootstrap's default utility classes can be found on the official
+  %a{:href => "https://getbootstrap.com/docs"} Bootstrap Documentation
+  page. The custom utilities below were created to extend this theme past the default utility classes built into Bootstrap's framework.
+/ Content Row
+.row
+  / Grow In Utility
+  .col-lg-6
+    .card.position-relative
+      .card-header.py-3
+        %h6.m-0.font-weight-bold.text-primary Grow In Animation Utilty
+      .card-body
+        .mb-3
+          %code .animated--grow-in
+        .small.mb-1 Navbar Dropdown Example:
+        %nav.navbar.navbar-expand.navbar-light.bg-light.mb-4
+          %a.navbar-brand{:href => "#"} Navbar
+          %ul.navbar-nav.ml-auto
+            %li.nav-item.dropdown
+              %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+                Dropdown
+              .dropdown-menu.dropdown-menu-right.animated--grow-in{"aria-labelledby" => "navbarDropdown"}
+                %a.dropdown-item{:href => "#"} Action
+                %a.dropdown-item{:href => "#"} Another action
+                .dropdown-divider
+                %a.dropdown-item{:href => "#"} Something else here
+        %p.mb-0.small Note: This utility animates the CSS transform property, meaning it will override any existing transforms on an element being animated! In this theme, the grow in animation is only being used on dropdowns within the navbar.
+  / Fade In Utility
+  .col-lg-6
+    .card.position-relative
+      .card-header.py-3
+        %h6.m-0.font-weight-bold.text-primary Fade In Animation Utilty
+      .card-body
+        .mb-3
+          %code .animated--fade-in
+        .small.mb-1 Navbar Dropdown Example:
+        %nav.navbar.navbar-expand.navbar-light.bg-light.mb-4
+          %a.navbar-brand{:href => "#"} Navbar
+          %ul.navbar-nav.ml-auto
+            %li.nav-item.dropdown
+              %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+                Dropdown
+              .dropdown-menu.dropdown-menu-right.animated--fade-in{"aria-labelledby" => "navbarDropdown"}
+                %a.dropdown-item{:href => "#"} Action
+                %a.dropdown-item{:href => "#"} Another action
+                .dropdown-divider
+                %a.dropdown-item{:href => "#"} Something else here
+        .small.mb-1 Dropdown Button Example:
+        .dropdown.mb-4
+          %button#dropdownMenuButton.btn.btn-primary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+            Dropdown
+          .dropdown-menu.animated--fade-in{"aria-labelledby" => "dropdownMenuButton"}
+            %a.dropdown-item{:href => "#"} Action
+            %a.dropdown-item{:href => "#"} Another action
+            %a.dropdown-item{:href => "#"} Something else here
+        %p.mb-0.small Note: This utility animates the CSS opacity property, meaning it will override any existing opacity on an element being animated!

@@ -1,0 +1,11 @@
+%nav.navbar.navbar-expand.navbar-light.bg-white.topbar.mb-4.static-top.shadow
+  %button#sidebarToggleTop.btn.btn-link.d-md-none.rounded-circle.mr-3
+    %i.fa.fa-bars
+  %form.d-none.d-sm-inline-block.form-inline.mr-auto.ml-md-3.my-2.my-md-0.mw-100.navbar-search
+    = render "layouts/shared/search_field"
+  %ul.navbar-nav.ml-auto
+    = render "layouts/shared/search_dropdown"
+    = render "layouts/shared/notifications"
+    = render "layouts/shared/messages"
+    .topbar-divider.d-none.d-sm-block
+    = render "layouts/shared/user_nav"

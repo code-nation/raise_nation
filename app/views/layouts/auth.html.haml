@@ -1,0 +1,28 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Template
+    = csrf_meta_tags
+    = csp_meta_tag
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %meta{:content => "width=device-width, initial-scale=1, shrink-to-fit=no", :name => "viewport"}/
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  %body.bg-gradient-primary
+    .container
+      / Outer Row
+      .row.justify-content-center
+        .col-xl-10.col-lg-12.col-md-9
+          .card.o-hidden.border-0.shadow-lg.my-5
+            .card-body.p-0
+              .alert.alert-warning.alert-dismissible.fade.show{:role => "alert"}
+                = notice
+                %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+                  %span{"aria-hidden" => "true"} ×
+              .alert.alert-danger.alert-dismissible.fade.show{:role => "alert"}
+                = alert
+                %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+                  %span{"aria-hidden" => "true"} ×
+              / Nested Row within Card Body
+              = yield

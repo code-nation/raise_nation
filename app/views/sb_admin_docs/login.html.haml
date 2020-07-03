@@ -1,0 +1,29 @@
+.row
+  .col-lg-6.d-none.d-lg-block.bg-login-image
+  .col-lg-6
+    .p-5
+      .text-center
+        %h1.h4.text-gray-900.mb-4 Welcome Back!
+      %form.user
+        .form-group
+          %input#exampleInputEmail.form-control.form-control-user{"aria-describedby" => "emailHelp", :placeholder => "Enter Email Address...", :type => "email"}/
+        .form-group
+          %input#exampleInputPassword.form-control.form-control-user{:placeholder => "Password", :type => "password"}/
+        .form-group
+          .custom-control.custom-checkbox.small
+            %input#customCheck.custom-control-input{:type => "checkbox"}/
+            %label.custom-control-label{:for => "customCheck"} Remember Me
+        %a.btn.btn-primary.btn-user.btn-block{:href => sb_admin_docs_path}
+          Login
+        %hr/
+        %a.btn.btn-google.btn-user.btn-block{:href => sb_admin_docs_path}
+          %i.fab.fa-google.fa-fw
+          Login with Google
+        %a.btn.btn-facebook.btn-user.btn-block{:href => sb_admin_docs_path}
+          %i.fab.fa-facebook-f.fa-fw
+          Login with Facebook
+      %hr/
+      .text-center
+        %a.small{:href => forgot_password_sb_admin_docs_path} Forgot Password?
+      .text-center
+        %a.small{:href => register_sb_admin_docs_path} Create an Account!

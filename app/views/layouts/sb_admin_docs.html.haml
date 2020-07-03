@@ -1,0 +1,27 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Template
+    = csrf_meta_tags
+    = csp_meta_tag
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %meta{:content => "width=device-width, initial-scale=1, shrink-to-fit=no", :name => "viewport"}/
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  %body#page-top
+    #wrapper
+      = render  "layouts/shared/sidebar"
+      #content-wrapper.d-flex.flex-column
+        #content
+          = render "layouts/shared/topbar"
+          .container-fluid
+            = yield
+        %footer.sticky-footer.bg-white
+          .container.my-auto
+            .copyright.text-center.my-auto
+              %span Copyright © Your Website 2019
+    / Scroll to Top Button
+    %a.scroll-to-top.rounded{:href => "#page-top"}
+      %i.fas.fa-angle-up
+    = render "layouts/shared/logout_modal"
