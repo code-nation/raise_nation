@@ -1,0 +1,7 @@
+%li.nav-item.dropdown.no-arrow.d-sm-none
+  %a#searchDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+    %i.fas.fa-search.fa-fw
+  / Dropdown - Messages
+  .dropdown-menu.dropdown-menu-right.p-3.shadow.animated--grow-in{"aria-labelledby" => "searchDropdown"}
+    %form.form-inline.mr-auto.w-100.navbar-search
+      = render "layouts/shared/search_field"

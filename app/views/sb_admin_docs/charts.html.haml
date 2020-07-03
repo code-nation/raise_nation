@@ -1,0 +1,44 @@
+%h1.h3.mb-2.text-gray-800 Charts
+%p.mb-4
+  Chart.js is a third party plugin that is used to generate the charts in this theme. The charts below have been customized - for further customization options, please visit the
+  = succeed "." do
+    %a{:href => "https://www.chartjs.org/docs/latest/", :target => "_blank"} official Chart.js documentation
+/ Content Row
+.row
+  .col-xl-8.col-lg-7
+    / Area Chart
+    .card.shadow.mb-4
+      .card-header.py-3
+        %h6.m-0.font-weight-bold.text-primary Area Chart
+      .card-body
+        .chart-area
+          %canvas#myAreaChart
+        %hr/
+        Styling for the area chart can be found in the
+        %code /js/demo/chart-area-demo.js
+        file.
+    / Bar Chart
+    .card.shadow.mb-4
+      .card-header.py-3
+        %h6.m-0.font-weight-bold.text-primary Bar Chart
+      .card-body
+        .chart-bar
+          %canvas#myBarChart
+        %hr/
+        Styling for the bar chart can be found in the
+        %code /js/demo/chart-bar-demo.js
+        file.
+  / Donut Chart
+  .col-xl-4.col-lg-5
+    .card.shadow.mb-4
+      / Card Header - Dropdown
+      .card-header.py-3
+        %h6.m-0.font-weight-bold.text-primary Donut Chart
+      / Card Body
+      .card-body
+        .chart-pie.pt-4
+          %canvas#myPieChart
+        %hr/
+        Styling for the donut chart can be found in the
+        %code /js/demo/chart-pie-demo.js
+        file.
