@@ -1,0 +1,25 @@
+%li.nav-item.dropdown.no-arrow.mx-1
+  %a#alertsDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+    %i.fas.fa-bell.fa-fw
+    / Counter - Alerts
+    - if @notifications.present?
+      %span.badge.badge-danger.badge-counter
+        = @notifications.size
+        +
+  / Dropdown - Alerts
+  .dropdown-list.dropdown-menu.dropdown-menu-right.shadow.animated--grow-in{"aria-labelledby" => "alertsDropdown"}
+    %h6.dropdown-header
+      Alerts Center
+    - @notifications&.each do |notification|
+      %a.dropdown-item.d-flex.align-items-center{:href => "#"}
+        .mr-3
+          %div{:class => "icon-circle bg-#{notification.kind}"}
+            %i.fas.fa-file-alt.text-white
+        %div
+          .small.text-gray-500= notification.date
+          - if notification.viewed
+            = notification.content
+          - else
+            %span.font-weight-bold= notification.content
+    %a.dropdown-item.text-center.small.text-gray-500{:href => "#"}
+      Show All Alerts

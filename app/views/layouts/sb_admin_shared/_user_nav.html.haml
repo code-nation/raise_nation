@@ -4,6 +4,16 @@
     %img.img-profile.rounded-circle{:src => "https://source.unsplash.com/QAB-WJcbgJk/60x60"}/
   / Dropdown - User Information
   .dropdown-menu.dropdown-menu-right.shadow.animated--grow-in{"aria-labelledby" => "userDropdown"}
+    %a.dropdown-item{:href => "#"}
+      %i.fas.fa-user.fa-sm.fa-fw.mr-2.text-gray-400
+      Profile
+    %a.dropdown-item{:href => "#"}
+      %i.fas.fa-cogs.fa-sm.fa-fw.mr-2.text-gray-400
+      Settings
+    %a.dropdown-item{:href => "#"}
+      %i.fas.fa-list.fa-sm.fa-fw.mr-2.text-gray-400
+      Activity Log
+    .dropdown-divider
     %a.dropdown-item{"data-target" => "#logoutModal", "data-toggle" => "modal", :href => "#"}
       %i.fas.fa-sign-out-alt.fa-sm.fa-fw.mr-2.text-gray-400
       Logout

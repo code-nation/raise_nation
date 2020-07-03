@@ -1,0 +1,21 @@
+%li.nav-item.dropdown.no-arrow.mx-1
+  %a#messagesDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+    %i.fas.fa-envelope.fa-fw
+    / Counter - Messages
+    - if @messages.present?
+      %span.badge.badge-danger.badge-counter
+        = @messages.size
+  / Dropdown - Messages
+  .dropdown-list.dropdown-menu.dropdown-menu-right.shadow.animated--grow-in{"aria-labelledby" => "messagesDropdown"}
+    %h6.dropdown-header
+      Message Center
+    - @messages&.each do |message|
+      %a.dropdown-item.d-flex.align-items-center{:href => "#"}
+        .dropdown-list-image.mr-3
+          %img.rounded-circle{:alt => "", :src => "#{message.sender_avatar}"}/
+          .status-indicator.bg-success
+        .font-weight-bold
+          .text-truncate= message.content
+          .small.text-gray-500= message.sender
+    %a.dropdown-item.text-center.small.text-gray-500{:href => "#"}
+      Read More Messages
