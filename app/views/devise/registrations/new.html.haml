@@ -1,21 +1,22 @@
-%h2 Sign up
-= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  = render "devise/shared/error_messages", resource: resource
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-  .field
-    = f.label :password
-    - if @minimum_password_length
-      %em
-        (#{@minimum_password_length} characters minimum)
-    %br/
-    = f.password_field :password, autocomplete: "new-password"
-  .field
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation, autocomplete: "new-password"
-  .actions
-    = f.submit "Sign up"
-= render "devise/shared/links"
+.row
+  .col-lg-5.d-none.d-lg-block.bg-register-image
+  .col-lg-7
+    .p-5
+      .text-center
+        %h1.h4.text-gray-900.mb-4 Register as a User
+      = form_for(resource, as: resource_name, url: registration_path(resource_name), class: "user") do |f|
+        .form-group.row
+          .col-sm-6.mb-3.mb-sm-0
+            = f.text_field :first_name, autofocus: true, autocomplete: "first_name", class: 'form-control form-control-user', placeholder: "First Name"
+          .col-sm-6
+            = f.text_field :last_name, autofocus: true, autocomplete: "first_name", class: 'form-control form-control-user', placeholder: "First Name"
+        .form-group
+          = f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control form-control-user', placeholder: "Email Address"
+        .form-group.row
+          .col-sm-6.mb-3.mb-sm-0
+            = f.password_field :password, autocomplete: "new-password", class: 'form-control form-control-user', placeholder: 'Password'
+          .col-sm-6
+            = f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control form-control-user', placeholder: 'Password Confirmation'
+        = f.submit "Sign Up", class: 'btn btn-primary btn-user btn-block'
+      %hr/
+      = render "devise/shared/links"
