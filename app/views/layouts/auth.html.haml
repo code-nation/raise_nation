@@ -16,13 +16,15 @@
         .col-xl-10.col-lg-12.col-md-9
           .card.o-hidden.border-0.shadow-lg.my-5
             .card-body.p-0
-              .alert.alert-warning.alert-dismissible.fade.show{:role => "alert"}
-                = notice
-                %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
-                  %span{"aria-hidden" => "true"} ×
-              .alert.alert-danger.alert-dismissible.fade.show{:role => "alert"}
-                = alert
-                %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
-                  %span{"aria-hidden" => "true"} ×
-              / Nested Row within Card Body
+              - if notice.present?
+                .alert.alert-warning.alert-dismissible.fade.show{:role => "alert"}
+                  = notice
+                  %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+                    %span{"aria-hidden" => "true"} ×
+              - if alert.present?
+                .alert.alert-danger.alert-dismissible.fade.show{:role => "alert"}
+                  = alert
+                  %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+                    %span{"aria-hidden" => "true"} ×
+                / Nested Row within Card Body
               = yield
