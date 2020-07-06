@@ -9,6 +9,9 @@ Rails.application.routes.draw do
         on: :collection
   end
   resources :dashboard
+  namespace :settings do
+    resources :update_current_account, only: [:update]
+  end
 
   root 'dashboard#index'
 end

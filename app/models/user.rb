@@ -10,4 +10,12 @@ class User < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}".strip
   end
+
+  def first_account
+    all_accounts.first
+  end
+
+  def all_accounts
+    (accounts + owned_accounts).uniq
+  end
 end
