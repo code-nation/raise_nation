@@ -8,8 +8,9 @@
 
 puts "Deleting Users and Accounts"
 
-User.delete_all
+AccountUser.delete_all
 Account.delete_all
+User.delete_all
 
 puts "Generating users..."
 
@@ -17,6 +18,7 @@ puts "Generating users..."
   user = User.create(email: "testuser#{i}@test.com", password: "P@ssw0rd!", first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
   puts "Populating #{user.email}'s' owned accounts..."
   5.times do
-    Account.create(organisation_name: Faker::Company.name, owner: user)
+    account = user.owned_accounts.create(organisation_name: Faker::Company.name)
+    user.accounts << account
   end
 }

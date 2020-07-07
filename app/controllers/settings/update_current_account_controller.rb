@@ -3,7 +3,7 @@ module Settings
     before_action :authenticate_user!
 
     def update
-      session[:current_account_id] = current_user.all_accounts.select{ |account| account.id == params[:id].to_i }&.first&.id
+      session[:current_account_id] = current_user.accounts.find_by(id: params[:id]).id
       redirect_to root_path
     end
   end

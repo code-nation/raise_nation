@@ -5,8 +5,8 @@ class ApplicationController < ActionController::Base
   private
 
   def current_account
-    @current_account ||= current_user.all_accounts.select{|account| account.id == session[:current_account_id].to_i }&.first || current_user.first_account
-    session[:current_account_id] = @current_account.id
+    @current_account ||= current_user.accounts.find_by(id: session[:current_account_id]) || current_user.first_account
+    session[:current_account_id] = @current_account&.id
     @current_account
   end
 

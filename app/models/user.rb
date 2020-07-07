@@ -12,10 +12,6 @@ class User < ApplicationRecord
   end
 
   def first_account
-    all_accounts.first
-  end
-
-  def all_accounts
-    (accounts + owned_accounts).uniq
+    accounts.first
   end
 end
