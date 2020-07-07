@@ -1,6 +1,13 @@
 class ApplicationController < ActionController::Base
   layout :layout_by_resource
   helper_method :current_account
+  before_action :validate_account_presence!
+
+  def validate_account_presence!
+    if current_user.no_account?
+      redirect_to new_account_path if current_user.no_account?
+    end
+  end
 
   private
 

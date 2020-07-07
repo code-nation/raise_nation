@@ -14,4 +14,8 @@ class User < ApplicationRecord
   def first_account
     accounts.first
   end
+
+  def no_account?
+    accounts.empty?
+  end
 end

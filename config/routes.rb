@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :blas
   devise_for :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
@@ -12,6 +13,8 @@ Rails.application.routes.draw do
   namespace :settings do
     resources :update_current_account, only: [:update]
   end
+
+  resources :accounts
 
   root 'dashboard#index'
 end
