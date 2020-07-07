@@ -14,11 +14,8 @@ User.delete_all
 
 puts "Generating users..."
 
-5.times { |i|
+5.times do |i|
   user = User.create(email: "testuser#{i}@test.com", password: "P@ssw0rd!", first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
   puts "Populating #{user.email}'s' owned accounts..."
-  5.times do
-    account = user.owned_accounts.create(organisation_name: Faker::Company.name)
-    user.accounts << account
-  end
-}
+  5.times { user.owned_accounts.create(organisation_name: Faker::Company.name) }
+end
