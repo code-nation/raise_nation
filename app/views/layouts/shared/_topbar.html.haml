@@ -3,7 +3,9 @@
     %i.fa.fa-bars
   %form.d-none.d-sm-inline-block.form-inline.mr-auto.ml-md-3.my-2.my-md-0.mw-100.navbar-search
     = render "layouts/shared/search_field"
-  %ul.navbar-nav.ml-auto
+  = render "layouts/shared/accounts_dropdown"
+
+  %ul.navbar-nav
     = render "layouts/shared/search_dropdown"
     = render "layouts/shared/notifications"
     = render "layouts/shared/messages"

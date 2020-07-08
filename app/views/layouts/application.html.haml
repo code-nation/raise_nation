@@ -16,6 +16,16 @@
         #content
           = render "layouts/shared/topbar"
           .container-fluid
+            - if notice.present?
+              .alert.alert-warning.alert-dismissible.fade.show{:role => "alert"}
+                = notice
+                %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+                  %span{"aria-hidden" => "true"} ×
+            - if alert.present?
+              .alert.alert-danger.alert-dismissible.fade.show{:role => "alert"}
+                = alert
+                %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+                  %span{"aria-hidden" => "true"} ×
             = yield
         %footer.sticky-footer.bg-white
           .container.my-auto

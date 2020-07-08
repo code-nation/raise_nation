@@ -1,0 +1,9 @@
+.row.justify-content-md-center
+  .col-md-6
+    %br
+    %br
+    = bootstrap_form_for @account do |f|
+      = f.text_field :organisation_name, class: "form-control"
+      = f.submit "Save", class: "btn btn-primary btn-lg btn-block"
+%br
+%br
