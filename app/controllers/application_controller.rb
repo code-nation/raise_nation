@@ -4,9 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :validate_account_presence!
 
   def validate_account_presence!
-    if current_user.no_account?
-      redirect_to new_account_path if current_user.no_account?
-    end
+    redirect_to new_account_path if current_user.no_account?
   end
 
   private
