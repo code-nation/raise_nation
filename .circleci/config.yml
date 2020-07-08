@@ -26,6 +26,7 @@ jobs:
       # Bundle install dependencies
       - run: bundle install
       # Database setup
+      - run: yarn install --check-files
       - run: bundle exec rake db:create db:schema:load
       - run:
           name: Run tests
