@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   layout :layout_by_resource
   helper_method :current_account
-  before_action :validate_account_presence!, if: -> { user_signed_in? }
+  before_action :validate_account_presence!, if: -> { user_signed_in? && !devise_controller? }
 
   def validate_account_presence!
     redirect_to new_account_path if current_user.no_account?
