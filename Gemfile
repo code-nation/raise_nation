@@ -31,6 +31,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'bootstrap_form'
 
 gem 'devise', '~> 4.7.2'
+gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 
 group :test do
   gem 'shoulda-matchers', '~> 4.1', '>= 4.1.2'
@@ -40,7 +41,6 @@ end
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry'
-  gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
   gem 'rspec-rails', '~> 3.8'
   gem 'factory_bot_rails', '~> 5.1', '>= 5.1.1'
 end
