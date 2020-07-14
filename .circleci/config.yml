@@ -17,17 +17,37 @@ jobs:
   build:
     docker:
       - image: cimg/ruby:2.7-node
+        environment:
+          RAILS_ENV: test
+          PGHOST: 127.0.0.1
+          PGUSER: root
       - image: circleci/postgres:9.4.12-alpine
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: circle-test_test
     working_directory: ~/circleci-demo-workflows
     steps:
       - checkout
-      - run: gem update --system
-      - run: gem install bundler
+        # Restore bundle cache
+      - restore_cache:
+          keys:
+            - rails-demo-{{ checksum "Gemfile.lock" }}
+            - rails-demo-
       # Bundle install dependencies
-      - run: bundle install
+      - run:
+          name: Install dependencies
+          command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs 4 --retry 3
+      - run: sudo apt install -y postgresql-client || true
+      # Store bundle cache
+      - save_cache:
+          key: rails-demo-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
       # Database setup
       - run: yarn install --check-files
       - run: bundle exec rake db:create db:schema:load
       - run:
           name: Run tests
-          command: bundle exec rspec spec
+          command: bin/rails test
+      - store_test_results:
+          path: /tmp/test-results
