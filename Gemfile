@@ -43,6 +43,7 @@ group :development, :test do
   gem 'rspec-rails', '4.0.0.beta3'
   gem 'rails-controller-testing'
   gem 'factory_bot_rails', '~> 5.1', '>= 5.1.1'
+  gem 'rspec_junit_formatter'
 end
 
 group :development do
