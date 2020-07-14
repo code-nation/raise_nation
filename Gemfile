@@ -39,7 +39,9 @@ end
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry'
-  gem 'rspec-rails', '~> 3.8'
+  # bug on Rails 6 so using a custom version working
+  gem 'rspec-rails', '4.0.0.beta3'
+  gem 'rails-controller-testing'
   gem 'factory_bot_rails', '~> 5.1', '>= 5.1.1'
 end
 
