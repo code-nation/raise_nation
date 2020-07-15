@@ -30,6 +30,7 @@ gem 'bootstrap_form'
 
 gem 'devise', '~> 4.7.2'
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+gem 'rubocop-rails', require: false
 
 group :test do
   gem 'shoulda-matchers', '~> 4.1', '>= 4.1.2'

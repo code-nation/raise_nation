@@ -28,7 +28,7 @@ RSpec.describe AccountsController, type: :controller do
       expect(Account.last.organisation_name).to eq org_name
     end
 
-    context "no org name" do
+    context 'no org name' do
       let(:org_name) { nil }
 
       it do

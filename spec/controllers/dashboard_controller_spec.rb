@@ -14,7 +14,7 @@ RSpec.describe DashboardController, type: :controller do
       expect(response).to redirect_to new_account_path
     end
 
-    context "account available" do
+    context 'account available' do
       let(:user) do
         user = create(:user)
         user.owned_accounts.create(attributes_for(:account))

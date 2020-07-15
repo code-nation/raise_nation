@@ -19,7 +19,7 @@ RSpec.describe Settings::UpdateCurrentAccountController, type: :controller do
       expect(session[:current_account_id]).to eq account1.id
     end
 
-    context "different account id" do
+    context 'different account id' do
       let(:account_id) { account2.id }
 
       it do
