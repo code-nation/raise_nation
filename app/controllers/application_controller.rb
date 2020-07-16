@@ -1,19 +1,21 @@
 class ApplicationController < ActionController::Base
+  DEFAULT_LAYOUT = :application
+
   layout :layout_by_resource
   helper_method :current_account
   before_action :validate_account_presence!, if: -> { user_signed_in? && !devise_controller? }
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def validate_account_presence!
-    if current_user.no_account?
-      redirect_to new_account_path, notice: "In order to continue you need to create an account first."
-    end
+    return unless current_user.no_account?
+
+    redirect_to new_account_path, notice: 'In order to continue you need to create an account first.'
   end
 
   private
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[first_name last_name])
   end
 
   def current_account
@@ -24,9 +26,9 @@ class ApplicationController < ActionController::Base
 
   def layout_by_resource
     if devise_controller?
-      "auth"
+      'auth'
     else
-      "application"
+      DEFAULT_LAYOUT
     end
   end
 end

@@ -5,9 +5,9 @@ module Settings
     def create
       saved = if password_field_present?
                 current_user.update_with_password(user_params)
-               else
+              else
                 current_user.update(filtered_user_params)
-               end
+              end
 
       if saved
         redirect_to root_path, notice: 'Profile successfuly updated.'
@@ -23,7 +23,9 @@ module Settings
     end
 
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :current_password, :password, :password_confirmation)
+      params.require(:user).permit(:first_name, :last_name,
+                                   :email, :current_password,
+                                   :password, :password_confirmation)
     end
 
     def password_field_present?

@@ -1,6 +1,24 @@
+Style/Documentation:
+  Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*_spec.rb'
+Rails/UniqueValidationWithoutIndex:
+  Enabled: false
+
+AllCops:
+  Exclude:
+    - 'app/controllers/sb_admin_docs_controller.rb'
+    - 'app/views/sb_admin_docs/*.html.haml'
+    - 'app/views/layouts/sb_admin_docs.html.haml'
+    - 'app/views/layouts/sb_admin_shared/*.html.haml'
+    - 'app/helpers/active_link_to_helper.rb'
+    - 'app/helpers/template_nav_helper.rb'
+    - 'node_modules/**/*'
+    - 'config/**/*'
+    - 'db/**/*'
+    - 'bin/**/*'
+    - 'Gemfile'
 require: rubocop-rails
