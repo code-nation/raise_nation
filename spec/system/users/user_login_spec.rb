@@ -11,6 +11,6 @@ RSpec.describe 'User Login', type: :system do
     find('input.password').set(password)
     click_button 'Log in'
 
-    expect(page).to have_text('Signed in successfully')
+    expect(page).to have_text('In order to continue you need to create an account first.')
   end
 end
