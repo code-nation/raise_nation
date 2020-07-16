@@ -1,6 +1,4 @@
 class ApplicationController < ActionController::Base
-  DEFAULT_LAYOUT = :application
-
   layout :layout_by_resource
   helper_method :current_account
   before_action :validate_account_presence!, if: -> { user_signed_in? && !devise_controller? }
@@ -28,7 +26,7 @@ class ApplicationController < ActionController::Base
     if devise_controller?
       'auth'
     else
-      DEFAULT_LAYOUT
+      'application'
     end
   end
 end
