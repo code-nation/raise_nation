@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :dashboard
   namespace :settings do
     resources :update_current_account, only: [:update]
+    resources :profile, only: [:index, :create]
   end
 
   resources :accounts

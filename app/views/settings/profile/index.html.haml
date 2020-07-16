@@ -1,0 +1,4 @@
+%h4.mb-3 Edit Profile Account
+- if current_user.no_account?
+  %p.lead To get started, create an account for your organisation
+= render "form"

@@ -5,7 +5,9 @@
     %button.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
       = current_account&.organisation_name
     .dropdown-menu
-      - accounts_without_current(10).each do |account|
-        = link_to account.organisation_name, settings_update_current_account_path(id: account.id), class: "dropdown-item", method: :put
-      .dropdown-divider
+      - accounts = accounts_without_current(10)
+      - if accounts.any?
+        - accounts_without_current(10).each do |account|
+          = link_to account.organisation_name, settings_update_current_account_path(id: account.id), class: "dropdown-item", method: :put
+        .dropdown-divider
       = link_to "Create a New Account", new_account_path, class: "dropdown-item"

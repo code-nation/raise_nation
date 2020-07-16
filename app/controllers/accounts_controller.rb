@@ -9,14 +9,10 @@ class AccountsController < ApplicationController
   def create
     @account = current_user.owned_accounts.new(account_params)
 
-    respond_to do |format|
-      if @account.save
-        format.html { redirect_to root_path, notice: 'Account was successfully created.' }
-        format.json { redirect_to root_path, status: :created, location: @account }
-      else
-        format.html { render :new }
-        format.json { render json: @account.errors, status: :unprocessable_entity }
-      end
+    if @account.save
+      redirect_to root_path, notice: 'Account was successfully created.'
+    else
+      render :new
     end
   end
 
