@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   heroku: circleci/heroku@1.0.1 # Invoke the Heroku orb
-  rubocop: hanachin/rubocop@0.88.0
+  rubocop: hanachin/rubocop@0.0.6
 
 jobs:
   build:
