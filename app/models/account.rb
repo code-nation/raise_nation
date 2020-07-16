@@ -7,6 +7,10 @@ class Account < ApplicationRecord
 
   after_create :create_join_record!
 
+  def receive_notifications?(user)
+    account_users.find_by(user: user)&.receive_notifications?
+  end
+
   private
 
   def create_join_record!

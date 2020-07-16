@@ -2,6 +2,10 @@ class AccountsController < ApplicationController
   before_action :authenticate_user!
   skip_before_action :validate_account_presence!
 
+  def index
+    @accounts = current_user.accounts.includes(:owner)
+  end
+
   def new
     @account = current_user.owned_accounts.new
   end
