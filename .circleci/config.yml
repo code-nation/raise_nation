@@ -49,6 +49,8 @@ workflows:
     jobs:
       - rubocop/rubocop
       - build
+          requires:
+            - rubocop/rubocop
       - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
           requires:
             - build
