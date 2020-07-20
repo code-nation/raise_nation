@@ -1,0 +1,32 @@
+%h1.h3.mb-2.text-gray-800 Accounts
+%p.mb-4
+  List of accounts you owned or you joined with
+/ DataTales Example
+.card.shadow.mb-4
+  .card-header.py-3
+    %h6.m-0.font-weight-bold.text-primary Account Listing
+  .card-body
+    .table-responsive
+      %table#dataTable.table.table-bordered{:cellspacing => "0", :width => "100%"}
+        %thead
+          %tr
+            %th Account ID
+            %th Organisation Name
+            %th Owner
+            %th Owner's Email
+            %th Created At
+            %th Updated At
+            %th.nosort Enable notifications
+        %tbody
+          - @accounts.each do |account|
+            %tr
+              %td= account.id
+              %td= account.organisation_name
+              %td= account.owner&.full_name || 'N/A'
+              %td= account.owner&.email || 'N/A'
+              %td= account.created_at
+              %td= account.updated_at
+              - checked = account.receive_notifications?(current_user)
+              %td= check_box_tag :receive_notifications, checked, checked, class: 'account-receive-notification', data: { remote: true,
+                url: accounts_toggle_notification_path(account.id),
+                method: 'patch' }
