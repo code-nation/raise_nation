@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'User Registration', type: :system do
   let(:email) { Faker::Internet.email }
-  let(:password) {"password" }
-  let(:password_confirm) {"password" }
+  let(:password) { 'password' }
+  let(:password_confirm) { 'password' }
   let(:first_name) { Faker::Name.first_name }
   let(:last_name) { Faker::Name.first_name }
 
