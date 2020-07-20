@@ -2,9 +2,9 @@
   = link_to "Create new account", new_account_path, class: "btn btn-primary"
 - else
   .btn-group.pull-left
-    %button.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
+    %button.btn.btn-primary.dropdown-toggle.accounts-dropdown{"data-toggle" => "dropdown", :type => "button"}
       = current_account&.organisation_name
-    .dropdown-menu
+    .dropdown-menu.accounts-list-menu
       - accounts = accounts_without_current(10)
       - if accounts.any?
         - accounts_without_current(10).each do |account|
