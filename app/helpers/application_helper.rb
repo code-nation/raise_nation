@@ -2,7 +2,7 @@ module ApplicationHelper
   include ActiveLinkToHelper
   include TemplateNavHelper
 
-  DEFAULT_DATE_FORMAT = '%-d %b %Y'
+  DEFAULT_DATE_FORMAT = '%-d %b %Y'.freeze
 
   def accounts_without_current(limit = 10)
     return Account.none unless current_account
