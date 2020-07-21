@@ -2,7 +2,7 @@ module Settings
   class ProfileController < ApplicationController
     before_action :authenticate_user!
 
-    def create
+    def update
       saved = if password_field_present?
                 current_user.update_with_password(user_params)
               else
@@ -12,7 +12,7 @@ module Settings
       if saved
         redirect_to root_path, notice: 'Profile successfuly updated.'
       else
-        render :index
+        render :edit
       end
     end
 

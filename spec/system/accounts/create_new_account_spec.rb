@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Select account', type: :system do
+RSpec.describe 'Account creation', type: :system do
   let!(:user) { create(:user) }
   let(:org_name) { Faker::Company.name }
 
@@ -12,7 +12,7 @@ RSpec.describe 'Select account', type: :system do
     click_on('Save')
   end
 
-  it 'Updates the selected account' do
+  it 'Create a new account' do
     expect(Account.where(organisation_name: org_name)).not_to be_empty
     expect(page).to have_content('Account was successfully created.')
     expect(page.current_path).to eq('/')

@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   end
   namespace :settings do
     resources :update_current_account, only: [:update]
-    resources :profile, only: [:index, :create]
+    resources :profile, only: [:edit, :update]
   end
 
   resources :accounts

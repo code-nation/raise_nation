@@ -2,7 +2,7 @@
   .col-md-6
     %br
     %br
-    = bootstrap_form_for current_user, url: settings_profile_index_path, method: :post do |f|
+    = bootstrap_form_for current_user, url: settings_profile_path(id: current_user.id), method: :put do |f|
       = f.text_field :first_name, class: "form-control"
       = f.text_field :last_name, class: "form-control"
       = f.email_field :email, class: "form-control"

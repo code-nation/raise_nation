@@ -4,7 +4,7 @@
     %img.img-profile.rounded-circle{:src => "https://source.unsplash.com/QAB-WJcbgJk/60x60"}/
   / Dropdown - User Information
   .dropdown-menu.dropdown-menu-right.shadow.animated--grow-in{"aria-labelledby" => "userDropdown"}
-    = link_to settings_profile_index_path, class: 'dropdown-item user-profile' do
+    = link_to edit_settings_profile_path(id: current_user.id), class: 'dropdown-item user-profile' do
       %i.fas.fa-user.fa-sm.fa-fw.mr-2.text-gray-400
       Profile
     %a.dropdown-item.user-logout{"data-target" => "#logoutModal", "data-toggle" => "modal", :href => "#"}
