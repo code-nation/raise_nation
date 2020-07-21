@@ -5,61 +5,15 @@
     .sidebar-brand-icon.rotate-n-15
       %i.fas.fa-laugh-wink
     .sidebar-brand-text.mx-3
-      SB Admin
-      %sup 2
+      Raise Nation
   / Divider
   %hr.sidebar-divider.my-0/
   / Nav Item - Dashboard
-  %li.nav-item
-    %a.nav-link{:href => root_path}
+  %li{ class: "nav-item #{add_active_class(root_path)}" }
+    = link_to root_path, class: 'nav-link' do
       %i.fas.fa-fw.fa-tachometer-alt
       %span Dashboard
-  / Divider
-  %hr.sidebar-divider/
-  / Heading
-  .sidebar-heading
-    Interface
-  / Nav Item - Pages Collapse Menu
-  - active_context = active_link?(includes: ['buttons', 'cards'])
-  = nav_context :components, 'Components', icon: 'cog', active_link: active_context do
-    %h6.collapse-header Custom Components:
-    = active_link_to 'Buttons', buttons_sb_admin_docs_path, class: 'collapse-item'
-    = active_link_to 'Cards', cards_sb_admin_docs_path, class: 'collapse-item'
-  / Nav Item - Utilities Collapse Menu
-  = nav_context :utilities, 'Utilities', icon: 'wrench' do
-    %h6.collapse-header Custom Utilities:
-    = active_link_to 'Colors', utilities_color_sb_admin_docs_path, class: 'collapse-item'
-    = active_link_to 'Borders', utilities_border_sb_admin_docs_path, class: 'collapse-item'
-    = active_link_to 'Animations', utilities_animation_sb_admin_docs_path, class: 'collapse-item'
-    = active_link_to 'Other', utilities_other_sb_admin_docs_path, class: 'collapse-item'
-  / Divider
-  %hr.sidebar-divider/
-  / Heading
-  .sidebar-heading
-    Addons
-  / Nav Item - Pages Collapse Menu
-  = nav_context :pages, 'Pages', icon: 'folder' do
-    %h6.collapse-header Login Screens:
-    = active_link_to "Login", login_sb_admin_docs_path, class: 'collapse-item'
-    = active_link_to "Register", register_sb_admin_docs_path, class: 'collapse-item'
-    = active_link_to "Forgot Password", forgot_password_sb_admin_docs_path, class: 'collapse-item'
-    .collapse-divider
-    %h6.collapse-header Other Pages:
-    = active_link_to "404 Page", page_404_sb_admin_docs_path, class: 'collapse-item'
-    = active_link_to "Blank Page", blank_sb_admin_docs_path, class: 'collapse-item'
-  / Nav Item - Charts
-  %li{:class => "nav-item #{add_active_class(charts_sb_admin_docs_path)}"}
-    %a.nav-link{:href => charts_sb_admin_docs_path}
-      %i.fas.fa-fw.fa-chart-area
-      %span Charts
-  / Nav Item - Tables
-  %li{:class => "nav-item #{add_active_class(tables_sb_admin_docs_path)}"}
-    %a.nav-link{:href => tables_sb_admin_docs_path}
-      %i.fas.fa-fw.fa-table
-      %span Tables
-  / Divider
-  %hr.sidebar-divider.d-none.d-md-block/
-  / Sidebar Toggler (Sidebar)
-  .text-center.d-none.d-md-inline
-    %button#sidebarToggle.rounded-circle.border-0
-/ End of Sidebar
+  %li{ class: "nav-item #{add_active_class(accounts_path)}"}
+    = link_to accounts_path, class: 'nav-link' do
+      %i.fas.fa-fw.fa-address-book
+      %span Accounts

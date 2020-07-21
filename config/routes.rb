@@ -10,8 +10,12 @@ Rails.application.routes.draw do
         on: :collection
   end
   resources :dashboard
+  namespace :accounts do
+    resources :toggle_notification, only: [:update]
+  end
   namespace :settings do
     resources :update_current_account, only: [:update]
+    resources :profile, only: [:edit, :update]
   end
 
   resources :accounts
