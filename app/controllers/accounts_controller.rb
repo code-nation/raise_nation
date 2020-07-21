@@ -1,6 +1,11 @@
 class AccountsController < ApplicationController
   before_action :authenticate_user!
+  before_action :load_account, only: [:show]
   skip_before_action :validate_account_presence!
+
+  def show
+    @users = @account.users
+  end
 
   def index
     @accounts = current_user.accounts.includes(:owner)
@@ -21,6 +26,10 @@ class AccountsController < ApplicationController
   end
 
   private
+
+  def load_account
+    @account = current_user.accounts.find(params[:id])
+  end
 
   def account_params
     params.require(:account).permit(:organisation_name)

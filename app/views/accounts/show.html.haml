@@ -1,0 +1,27 @@
+%h1.h3.mb-2.text-gray-800 Account Page
+%p
+  %span.badge.badge-pill.badge-dark
+    Organisation:
+    = @account.organisation_name
+  %span.badge.badge-pill.badge-info
+    Owner:
+    = @account.owner.full_name
+.card.shadow.mb-4
+  .card-header.py-3
+    %h6.m-0.font-weight-bold.text-primary User listing
+  .card-body
+    .table-responsive
+      %table#dataTable.table.table-bordered{:cellspacing => "0", :width => "100%"}
+        %thead
+          %tr
+            %th Preferred Name
+            %th Full Name
+            %th Email
+            %th Notifications Enabled
+        %tbody
+          - @users.each do |user|
+            %tr
+              %td= user.preferred_name
+              %td= user.full_name
+              %td= user.email
+              %td= user.receive_notifications?(@account)

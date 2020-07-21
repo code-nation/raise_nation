@@ -18,4 +18,8 @@ class User < ApplicationRecord
   def no_account?
     accounts.empty?
   end
+
+  def receive_notifications?(account)
+    account_users.find_by(account: account)&.receive_notifications?
+  end
 end
