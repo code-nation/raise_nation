@@ -5,7 +5,7 @@ class AccountsController < ApplicationController
 
   def show
     @users = @account.users
-    @user_invite_form = UserInviteForm.new(account_id: @account.id)
+    @user_invite_form = UserInviteForm.new(account_id: @account.id, inviter_id: current_user.id)
   end
 
   def index

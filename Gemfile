@@ -29,6 +29,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'bootstrap_form'
 
 gem 'devise', '~> 4.7.2'
+gem 'devise_invitable', '~> 2.0.0'
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 gem 'rubocop-rails', require: false
 
