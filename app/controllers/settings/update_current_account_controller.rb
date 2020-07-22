@@ -4,7 +4,7 @@ module Settings
 
     def update
       session[:current_account_id] = current_user.accounts.find_by(id: params[:id])&.id
-      redirect_to root_path
+      redirect_to request.referer, notice: 'Change account successful.'
     end
   end
 end
