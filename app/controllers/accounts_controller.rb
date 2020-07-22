@@ -20,6 +20,7 @@ class AccountsController < ApplicationController
     @account = current_user.owned_accounts.new(account_params)
 
     if @account.save
+      set_current_account_id(@account.id)
       redirect_to root_path, notice: 'Account was successfully created.'
     else
       render :new
