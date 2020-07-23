@@ -4,8 +4,11 @@ class UserInviteForm
   attr_accessor :email, :account_id, :inviter_id
 
   validate :check_email_user
+  validate :check_account
+  validate :check_inviter
   validates :email, presence: true
   validates :account_id, presence: true
+  validates :inviter_id, presence: true
 
   def send_invite!
     if user
@@ -43,9 +46,21 @@ class UserInviteForm
       .deliver_now
   end
 
+  def check_inviter
+    return true if inviter_id.blank? || inviter
+
+    errors.add(:inviter_id, 'provided is not existing')
+  end
+
   def check_email_user
     return true unless account&.users&.find_by(email: email)
 
     errors.add(:email, 'already have access to this account')
+  end
+
+  def check_account
+    return true if account_id.blank? || account
+
+    errors.add(:account_id, 'provided is not existing')
   end
 end
