@@ -10,7 +10,7 @@ module Settings
               end
 
       if saved
-        redirect_to root_path, notice: 'Profile successfuly updated.'
+        redirect_to root_path, notice: 'Profile successfully updated.'
       else
         render :edit
       end
