@@ -6,20 +6,18 @@ RSpec.describe Accounts::InviteUserController, type: :controller do
 
   describe 'POST create' do
     let(:email) { Faker::Internet.email }
-    let(:account_id) { create(:account).id }
-    let(:inviter_id) { user.id }
+    let(:account_id) { create(:account, user_id: user.id).id }
 
     let(:params) do
       {
         email: email,
-        account_id: account_id,
-        inviter_id: inviter_id
+        account_id: account_id
       }
     end
 
     before(:each) do
       request.headers.merge!('HTTP_REFERER' => root_path)
-      post :create, params: { user_invite_form: params }
+      post :create, params: { user_invitation: params }
     end
 
     it 'should redirect back with success notification' do
@@ -48,34 +46,27 @@ RSpec.describe Accounts::InviteUserController, type: :controller do
       end
     end
 
+    describe 'account with no user access' do
+      let(:account_id) { create(:account) }
+
+      it 'should redirect back with failed notification' do
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to(root_path)
+        expect(flash[:alert]).to eq(
+          'Account invitations can only be sent to users for existing accounts you\'re able to access'
+        )
+      end
+    end
+
     describe 'non existing account' do
       let(:account_id) { 999 }
 
       it 'should redirect back with failed notification' do
         expect(response).to have_http_status(:redirect)
         expect(response).to redirect_to(root_path)
-        expect(flash[:alert]).to eq 'Account provided is not existing'
-      end
-    end
-
-
-    describe 'empty inviter_id' do
-      let(:inviter_id) { nil }
-
-      it 'should redirect back with failed notification' do
-        expect(response).to have_http_status(:redirect)
-        expect(response).to redirect_to(root_path)
-        expect(flash[:alert]).to eq 'Inviter can\'t be blank'
-      end
-    end
-
-    describe 'non existing inviter' do
-      let(:inviter_id) { 999 }
-
-      it 'should redirect back with failed notification' do
-        expect(response).to have_http_status(:redirect)
-        expect(response).to redirect_to(root_path)
-        expect(flash[:alert]).to eq 'Inviter provided is not existing'
+        expect(flash[:alert]).to eq(
+          'Account invitations can only be sent to users for existing accounts you\'re able to access'
+        )
       end
     end
   end

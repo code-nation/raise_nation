@@ -1,8 +1,34 @@
 require 'rails_helper'
 
 RSpec.describe AccountsController, type: :controller do
-  let(:user) { create(:user) }
+  let(:user) { create(:user, :with_accounts) }
   before { sign_in user }
+
+  describe 'GET show' do
+    let(:account) { user.accounts.first }
+
+    before(:each) do
+      get :show, params: { id: account.id }
+    end
+
+    it do
+      expect(response).to have_http_status(:ok)
+      expect(assigns(:account)).to eq account
+      expect(assigns(:users)).to eq account.users
+      expect(assigns(:user_invite_form)).to be_an_instance_of(UserInvitation)
+    end
+  end
+
+  describe 'GET index' do
+    before(:each) do
+      get :index
+    end
+
+    it do
+      expect(response).to have_http_status(:ok)
+      expect(assigns(:accounts)).to eq user.accounts
+    end
+  end
 
   describe 'GET new' do
     before(:each) do
@@ -26,16 +52,6 @@ RSpec.describe AccountsController, type: :controller do
       expect(response).to have_http_status(:redirect)
       expect(response).to redirect_to(root_path)
       expect(Account.last.organisation_name).to eq org_name
-    end
-
-    context 'no org name' do
-      let(:org_name) { nil }
-
-      it do
-        expect(response).to have_http_status(:ok)
-        expect(Account.count).to eq 0
-        expect(Account.last&.organisation_name).to eq nil
-      end
     end
   end
 end

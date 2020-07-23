@@ -1,4 +1,4 @@
-class UserInviteForm
+class UserInvitation
   include ActiveModel::Model
 
   attr_accessor :email, :account_id, :inviter_id
@@ -30,7 +30,7 @@ class UserInviteForm
   end
 
   def account
-    @account ||= Account.find_by(id: account_id)
+    @account ||= inviter.accounts.find_by(id: account_id)
   end
 
   private
@@ -61,6 +61,6 @@ class UserInviteForm
   def check_account
     return true if account_id.blank? || account
 
-    errors.add(:account_id, 'provided is not existing')
+    errors.add(:account_id, 'invitations can only be sent to users for existing accounts you\'re able to access')
   end
 end

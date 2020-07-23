@@ -10,6 +10,13 @@ RSpec.describe Account, type: :model do
   it { should validate_presence_of(:organisation_name) }
   it { should validate_uniqueness_of(:organisation_name) }
 
+  describe '#receive_notifications?' do
+    let(:account) { create(:account) }
+    let(:result) { account.receive_notifications?(account.owner) }
+
+    it { expect(result).to eq true }
+  end
+
   describe 'Creation of Join record' do
     let(:account) { build(:account) }
 

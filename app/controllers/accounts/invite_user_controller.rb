@@ -15,11 +15,11 @@ module Accounts
     private
 
     def set_user_invite
-      @user_invite = UserInviteForm.new(invitation_params)
+      @user_invite = UserInvitation.new(invitation_params.merge(inviter_id: current_user.id))
     end
 
     def invitation_params
-      params.require(:user_invite_form).permit(:email, :account_id, :inviter_id)
+      params.require(:user_invitation).permit(:email, :account_id)
     end
   end
 end

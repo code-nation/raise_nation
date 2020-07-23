@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
     redirect_to new_account_path, notice: 'In order to continue you need to create an account first.'
   end
 
-  def set_current_account_id(account_id)
+  def update_current_account_id(account_id)
     session[:current_account_id] = current_user.accounts.find_by(id: account_id)&.id
   end
 

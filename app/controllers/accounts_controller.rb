@@ -5,7 +5,7 @@ class AccountsController < ApplicationController
 
   def show
     @users = @account.users
-    @user_invite_form = UserInviteForm.new(account_id: @account.id, inviter_id: current_user.id)
+    @user_invite_form = UserInvitation.new(account_id: @account.id)
   end
 
   def index
@@ -20,7 +20,7 @@ class AccountsController < ApplicationController
     @account = current_user.owned_accounts.new(account_params)
 
     if @account.save
-      set_current_account_id(@account.id)
+      update_current_account_id(@account.id)
       redirect_to root_path, notice: 'Account was successfully created.'
     else
       render :new

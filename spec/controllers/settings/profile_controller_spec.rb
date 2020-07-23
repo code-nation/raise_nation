@@ -5,9 +5,9 @@ RSpec.describe Settings::ProfileController, type: :controller do
   before { sign_in user }
 
   describe 'PUT update' do
-    let(:first_name) { Faker::Name.first_name }
-    let(:last_name) { Faker::Name.last_name }
-    let(:email) { Faker::Internet.email }
+    let(:first_name) { 'Charles' }
+    let(:last_name) { 'Babbage' }
+    let(:email) { 'someemail@test.com' }
     let(:current_password) { '' }
     let(:password) { '' }
     let(:password_confirmation) { '' }
