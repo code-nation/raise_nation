@@ -55,7 +55,7 @@ class UserInvitation
   def check_email_user
     return true unless account&.users&.find_by(email: email)
 
-    errors.add(:email, 'already have access to this account')
+    errors.add(:email, 'already has access to this account')
   end
 
   def check_account
