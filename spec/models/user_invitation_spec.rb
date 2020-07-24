@@ -13,7 +13,7 @@ RSpec.describe UserInvitation, type: :model do
   it { should validate_presence_of :inviter_id }
 
   describe '#check_email_user' do
-    describe 'email already have access' do
+    describe 'email already has access' do
       let!(:email) do
         user = create(:user)
         user.accounts << account
@@ -22,7 +22,7 @@ RSpec.describe UserInvitation, type: :model do
 
       before(:each) { subject.valid? }
 
-      it { expect(subject.errors.messages[:email]).to eq(['already have access to this account']) }
+      it { expect(subject.errors.messages[:email]).to eq(['already has access to this account']) }
     end
   end
 
