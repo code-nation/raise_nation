@@ -17,6 +17,7 @@
             %th Created At
             %th Updated At
             %th.nosort Enable notifications
+            %th.nosort Actions
         %tbody
           - @accounts.each do |account|
             %tr
@@ -30,3 +31,7 @@
               %td= check_box_tag :receive_notifications, checked, checked, class: 'account-receive-notification', data: { remote: true,
                 url: accounts_toggle_notification_path(account.id),
                 method: 'patch' }
+              %td
+                = link_to account, class: 'btn-circle btn-success configure-account' do
+                  %i.fas.fa-eye
+

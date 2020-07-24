@@ -1,0 +1,16 @@
+.row
+  .col-lg-5.d-none.d-lg-block.bg-register-image
+  .col-lg-7
+    .p-5
+      .text-center
+        %h1.h4.text-gray-900.mb-4
+          = t "devise.invitations.edit.header"
+      = form_for(resource, as: resource_name, url: invitation_path(resource_name), class: 'user', html: { method: :put }) do |f|
+        = render "devise/shared/error_messages", resource: resource
+        = f.hidden_field :invitation_token, readonly: true
+        - if f.object.class.require_password_on_accepting
+          .form-group
+            = f.password_field :password, autocomplete: "password", class: 'form-control form-control-user', placeholder: 'Password'
+          .form-group
+            = f.password_field :password_confirmation, autocomplete: "password-confirmation", class: 'form-control form-control-user', placeholder: 'Password Confirmation'
+        = f.submit t("devise.invitations.edit.submit_button"), class: 'btn btn-primary btn-user btn-block'

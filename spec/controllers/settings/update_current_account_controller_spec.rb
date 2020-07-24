@@ -10,6 +10,7 @@ RSpec.describe Settings::UpdateCurrentAccountController, type: :controller do
     let(:account_id) { account1.id }
 
     before(:each) do
+      request.headers.merge!('HTTP_REFERER' => root_path)
       put :update, params: { id: account_id }
     end
 

@@ -5,4 +5,10 @@ FactoryBot.define do
     last_name { Faker::Name.last_name }
     password { 'P@ssw0rd!' }
   end
+
+  trait :with_accounts do
+    after(:build) do |user|
+      user.accounts << FactoryBot.build_list(:account, rand(1..3))
+    end
+  end
 end

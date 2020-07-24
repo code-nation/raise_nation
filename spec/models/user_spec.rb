@@ -36,5 +36,13 @@ RSpec.describe User, type: :model do
         it { expect(user.no_account?).to eq false }
       end
     end
+
+    describe '#receive_notifications?' do
+      let(:user) { create(:user, :with_accounts) }
+      let(:account) { user.accounts.first }
+      let(:result) { user.receive_notifications?(account) }
+
+      it { expect(result).to eq true }
+    end
   end
 end

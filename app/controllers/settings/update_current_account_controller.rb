@@ -3,8 +3,8 @@ module Settings
     before_action :authenticate_user!
 
     def update
-      session[:current_account_id] = current_user.accounts.find_by(id: params[:id])&.id
-      redirect_to root_path
+      update_current_account_id(params[:id])
+      redirect_to request.referer, notice: 'Change account successful.'
     end
   end
 end

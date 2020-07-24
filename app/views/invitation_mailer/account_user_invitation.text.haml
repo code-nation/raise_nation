@@ -1,0 +1,8 @@
+= "You have been added by #{@inviter_name} to collaborate in the RaiseNation account for #{@org_name}"
+
+- if @raw_invitation_token.present?
+  = 'Click on the link below to set your password.'
+  = accept_invitation_url(@user, invitation_token: @raw_invitation_token)
+  - if @user.invitation_due_at
+    = t("devise.mailer.invitation_instructions.accept_until", due_date: l(@user.invitation_due_at, format: :'devise.mailer.invitation_instructions.accept_until_format'))
+  = t("devise.mailer.invitation_instructions.ignore")

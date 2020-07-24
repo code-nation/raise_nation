@@ -1,0 +1,35 @@
+%h1.h3.mb-2.text-gray-800 Account Page
+%p
+  %strong
+    Organisation name:
+  = @account.organisation_name
+%p
+  %strong
+    Account owner:
+  = "#{@account.owner.full_name} (#{@account.owner.email})"
+
+.card.shadow.mb-4
+  .card-header.py-3
+    %span.m-0.font-weight-bold.text-primary User listing
+    .account-listing-controls.float-right
+      %a.btn.btn-sm.btn-primary.user-invite{"data-target" => "#invite-user-modal", "data-toggle" => "modal", :href => "#"}
+        %i.fas.fa-mail-bulk.fa-sm.fa-fw.mr-2.text-gray-400
+        Send Invite
+  .card-body
+    .table-responsive
+      %table#dataTable.table.table-bordered{:cellspacing => "0", :width => "100%"}
+        %thead
+          %tr
+            %th Preferred Name
+            %th Full Name
+            %th Email
+            %th Notifications Enabled
+        %tbody
+          - @users.each do |user|
+            %tr
+              %td= user.preferred_name
+              %td= user.full_name
+              %td= user.email
+              %td= user.receive_notifications?(@account)
+
+= render 'invite_user_modal'

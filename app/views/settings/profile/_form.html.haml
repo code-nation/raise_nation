@@ -5,6 +5,7 @@
     = bootstrap_form_for current_user, url: settings_profile_path(id: current_user.id), method: :put do |f|
       = f.text_field :first_name, class: "form-control"
       = f.text_field :last_name, class: "form-control"
+      = f.text_field :preferred_name, class: "form-control"
       = f.email_field :email, class: "form-control"
       = f.password_field :current_password, class: "form-control"
       = f.password_field :password, class: "form-control"
