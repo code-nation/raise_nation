@@ -10,4 +10,4 @@
         = bootstrap_form_for @user_invite_form, url: accounts_invite_user_index_path do |f|
           = f.hidden_field :account_id
           = f.email_field :email
-          = f.submit 'Send invite'
+          = f.submit 'Send invite', class: 'user-invite-submit'
