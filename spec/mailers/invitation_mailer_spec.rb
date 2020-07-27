@@ -5,7 +5,7 @@ RSpec.describe InvitationMailer, type: :mailer do
   let(:inviter_name) { Faker::Name.first_name }
   let(:org_name) { Faker::Company.name }
 
-  describe "account_user_invitation" do
+  describe 'account_user_invitation' do
     let(:mail) do
       InvitationMailer.account_user_invitation(
         user: user,
