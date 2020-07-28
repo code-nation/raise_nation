@@ -21,5 +21,10 @@ Rails.application.routes.draw do
 
   resources :accounts
 
+  resources :nations, only: [] do
+    get :connect, on: :member
+    get :oauth, on: :collection
+  end
+
   root 'dashboard#index'
 end

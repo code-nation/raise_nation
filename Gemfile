@@ -33,6 +33,8 @@ gem 'devise_invitable', '~> 2.0.0'
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 gem 'rubocop-rails', require: false
 gem 'sendgrid-ruby'
+gem 'oauth2'
+gem 'nationbuilder-rb', require: 'nationbuilder'
 
 group :test do
   gem 'shoulda-matchers', '~> 4.1', '>= 4.1.2'
