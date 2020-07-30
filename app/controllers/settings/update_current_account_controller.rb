@@ -4,7 +4,7 @@ module Settings
 
     def update
       update_current_account_id(params[:id])
-      redirect_to request.referer, notice: 'Change account successful.'
+      redirect_to root_path, notice: 'Change account successful.'
     end
   end
 end

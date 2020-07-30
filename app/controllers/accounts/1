@@ -1,0 +1,19 @@
+module Accounts
+  class RaiselyCampaignsController < ApplicationController
+    before_action :load_account
+    before_action :load_campaign
+
+    def edit
+    end
+
+    private
+
+    def load_account
+      @account = current_user.accounts.find(params[:account_id])
+    end
+
+    def load_campaign
+      @campaign = @account.raisely_campaigns.find(params[:id])
+    end
+  end
+end

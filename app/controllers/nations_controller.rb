@@ -11,9 +11,9 @@ class NationsController < ApplicationController
       account = @nation.account
       @nation.update(token: api_token)
 
-      redirect_to account, notice: "Your nation was connected successfully"
+      redirect_to account, notice: 'Your nation was connected successfully'
     else
-      redirect_to account, alert: "Something went wrong when connecting your nation."
+      redirect_to account, alert: 'Something went wrong when connecting your nation.'
     end
   end
 
@@ -21,8 +21,8 @@ class NationsController < ApplicationController
 
   def load_nation_and_check_owner
     @nation = Nation.find(params[:id] || params[:nation_id])
-    unless @nation.account&.owner == current_user
-      redirect_to @nation.account, alert: 'You can\'t connect a Nation under this account.'
-    end
+    return if @nation.account&.owner == current_user
+
+    redirect_to @nation.account, alert: 'You can\'t connect a Nation under this account.'
   end
 end

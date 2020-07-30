@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_29_083159) do
+ActiveRecord::Schema.define(version: 2020_07_30_065116) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,16 @@ ActiveRecord::Schema.define(version: 2020_07_29_083159) do
     t.bigint "account_id", null: false
     t.index ["account_id"], name: "index_nations_on_account_id"
     t.index ["slug"], name: "index_nations_on_slug"
+  end
+
+  create_table "raisely_campaigns", force: :cascade do |t|
+    t.string "campaign_uuid"
+    t.string "api_key"
+    t.bigint "account_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_raisely_campaigns_on_account_id"
+    t.index ["campaign_uuid"], name: "index_raisely_campaigns_on_campaign_uuid"
   end
 
   create_table "users", force: :cascade do |t|
@@ -83,4 +93,5 @@ ActiveRecord::Schema.define(version: 2020_07_29_083159) do
   add_foreign_key "account_users", "users"
   add_foreign_key "accounts", "users"
   add_foreign_key "nations", "accounts"
+  add_foreign_key "raisely_campaigns", "accounts"
 end

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Send invite to join account', type: :system do
   let!(:user) { create(:user, :with_accounts) }
   let!(:account1) { create(:account, user_id: user.id) }
-  let(:email) { Faker::Internet.email }
+  let(:email) { 'tst@tst.com' }
 
   before(:each) do
     login_as(user, scope: :user)

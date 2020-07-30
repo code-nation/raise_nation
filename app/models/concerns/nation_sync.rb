@@ -17,7 +17,7 @@ module NationSync
     nb_auth_client.auth_code.get_token(code, redirect_uri: oauth_url).token
   end
 
-  def is_connected?
+  def connected?
     token.present?
   end
 end
