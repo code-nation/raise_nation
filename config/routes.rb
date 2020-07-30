@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   namespace :accounts do
     resources :toggle_notification, only: [:update]
     resources :invite_user, only: [:create]
+    resources :add_nation, only: [:new, :create]
   end
   namespace :settings do
     resources :update_current_account, only: [:update]

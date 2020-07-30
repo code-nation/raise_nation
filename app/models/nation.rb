@@ -1,5 +1,8 @@
 class Nation < ApplicationRecord
   include NationSync
 
-  validates :slug, uniqueness: true, allow_nil: true
+  belongs_to :account
+
+  validates :slug, presence: true
+  validates :slug, uniqueness: true, if: -> { slug.present? }
 end

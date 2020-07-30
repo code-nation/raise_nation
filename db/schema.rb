@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_28_111646) do
+ActiveRecord::Schema.define(version: 2020_07_29_083159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(version: 2020_07_28_111646) do
     t.string "token"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "account_id", null: false
+    t.index ["account_id"], name: "index_nations_on_account_id"
     t.index ["slug"], name: "index_nations_on_slug"
   end
 
@@ -80,4 +82,5 @@ ActiveRecord::Schema.define(version: 2020_07_28_111646) do
   add_foreign_key "account_users", "accounts"
   add_foreign_key "account_users", "users"
   add_foreign_key "accounts", "users"
+  add_foreign_key "nations", "accounts"
 end

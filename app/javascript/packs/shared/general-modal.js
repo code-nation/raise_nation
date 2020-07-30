@@ -37,13 +37,13 @@ $.extend(window.RaiseNation, {
     $("body").on("click", ".modal-link", function(e){
       e.preventDefault();
       $link = $(this);
-      RaiseNation.openModal($link.data("target"), $link.attr("href"), $link.data("backdrop"), $link.data("keyboard"))
+      RaiseNation.openModal($link.data("target"), $link.attr("href"), $link.data("backdrop") || 'static', $link.data("keyboard") || false)
     });
 
     $("body").on("submit", ".modal-form", function(e){
       e.preventDefault();
       $form = $(this);
-      RaiseNation.openModal($form.data("target"), $form.data("href"), $form.data("backdrop"), $form.data("keyboard"), $form)
+      RaiseNation.openModal($form.data("target"), $form.data("href"), $form.data("backdrop") || 'static', $form.data("keyboard") || false, $form)
     })
   }
 });

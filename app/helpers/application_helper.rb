@@ -19,6 +19,12 @@ module ApplicationHelper
 
   def link_to_modal(title, url, options = {})
     options[:class] = ["modal-link", options[:class]].compact.join(" ")
-    link_to title, url, options
+    if block_given?
+      link_to url, options do
+        yield
+      end
+    else
+      link_to title, url, options
+    end
   end
 end

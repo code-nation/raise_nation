@@ -2,9 +2,8 @@
   .card-header.py-3
     %span.m-0.font-weight-bold.text-primary Nations listing
     .account-listing-controls.float-right
-      %a.btn.btn-sm.btn-primary.user-invite{"data-target" => "#invite-user-modal", "data-toggle" => "modal", :href => "#"}
-        %i.fas.fa-mail-bulk.fa-sm.fa-fw.mr-2.text-gray-400
-        Add Nation
+      - if @account.owner?(current_user)
+        = link_to_modal 'Add Nation', new_accounts_add_nation_path(account_id: params[:id]), class: 'btn btn-sm btn-primary add-nation'
   .card-body
     .table-responsive
       %table#dataTable.table.table-bordered{:cellspacing => "0", :width => "100%"}
