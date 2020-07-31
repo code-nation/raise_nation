@@ -22,7 +22,10 @@ module Accounts
     end
 
     def connect
-      redirect_to @nation.nb_auth_client.auth_code.authorize_url(redirect_uri: oauth_accounts_nations_url(nation_id: params[:id]))
+      redirect_to @nation
+        .nb_auth_client
+        .auth_code
+        .authorize_url(redirect_uri: oauth_accounts_nations_url(nation_id: params[:id]))
     end
 
     def oauth
