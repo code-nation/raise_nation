@@ -7,7 +7,7 @@
         %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
           %span{"aria-hidden" => "true"} ×
       .modal-body
-        = bootstrap_form_for @user_invite_form, url: accounts_invite_user_index_path do |f|
+        = bootstrap_form_for user_invite_form, url: accounts_invite_user_index_path do |f|
           = f.hidden_field :account_id
           = f.email_field :email
-          = f.submit 'Send invite', class: 'user-invite-submit'
+          = f.submit 'Send invite', class: 'btn btn-primary btn-sm user-invite-submit'

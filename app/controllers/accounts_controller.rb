@@ -5,6 +5,8 @@ class AccountsController < ApplicationController
 
   def show
     @users = @account.users
+    @nations = @account.nations
+    @campaigns = @account.raisely_campaigns
     @user_invite_form = UserInvitation.new(account_id: @account.id)
   end
 

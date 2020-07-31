@@ -8,28 +8,7 @@
     Account owner:
   = "#{@account.owner.full_name} (#{@account.owner.email})"
 
-.card.shadow.mb-4
-  .card-header.py-3
-    %span.m-0.font-weight-bold.text-primary User listing
-    .account-listing-controls.float-right
-      %a.btn.btn-sm.btn-primary.user-invite{"data-target" => "#invite-user-modal", "data-toggle" => "modal", :href => "#"}
-        %i.fas.fa-mail-bulk.fa-sm.fa-fw.mr-2.text-gray-400
-        Send Invite
-  .card-body
-    .table-responsive
-      %table#dataTable.table.table-bordered{:cellspacing => "0", :width => "100%"}
-        %thead
-          %tr
-            %th Preferred Name
-            %th Full Name
-            %th Email
-            %th Notifications Enabled
-        %tbody
-          - @users.each do |user|
-            %tr
-              %td= user.preferred_name
-              %td= user.full_name
-              %td= user.email
-              %td= user.receive_notifications?(@account)
-
-= render 'invite_user_modal'
+= render 'user_listing', users: @users
+= render 'nations_listing', nations: @nations
+= render 'raisely_campaigns_listing', campaigns: @campaigns
+= render 'invite_user_modal', user_invite_form: @user_invite_form

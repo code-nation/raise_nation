@@ -13,4 +13,18 @@ module ApplicationHelper
   def formatted_date(datetime)
     datetime.strftime(DEFAULT_DATE_FORMAT)
   end
+
+  # Usage:
+  # = link_to_modal "Open Modal", some_path, class: "btn btn-primary" %>
+
+  def link_to_modal(title, url, options = {})
+    options[:class] = ['modal-link', options[:class]].compact.join(' ')
+    if block_given?
+      link_to url, options do
+        yield
+      end
+    else
+      link_to title, url, options
+    end
+  end
 end
