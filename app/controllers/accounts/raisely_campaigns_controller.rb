@@ -1,14 +1,31 @@
 module Accounts
   class RaiselyCampaignsController < ApplicationController
-    before_action :load_account
-    before_action :load_campaign
+    include AccountLoadableConcern
+
+    skip_before_action :load_account, only: [:new, :create]
+    before_action :load_campaign, only: [:edit, :update]
+
+    def new
+      @campaign = @account.raisely_campaigns.new
+      render layout: false
+    end
+
+    def create
+      @campaign = @account.raisely_campaigns.new(new_campaign_params)
+
+      if @campaign.save
+        redirect_to @account, notice: 'Campaign successfully created'
+      else
+        redirect_to @account, alert: @campaign.errors.full_messages.join("\n")
+      end
+    end
 
     def edit
       render layout: false
     end
 
     def update
-      if @campaign.update(campaign_params)
+      if @campaign.update(update_campaign_params)
         redirect_to @account, notice: 'Campaign was successfully updated.'
       else
         redirect_to @account, alert: @campaign.errors.full_messages.join("\n")
@@ -17,12 +34,12 @@ module Accounts
 
     private
 
-    def campaign_params
-      params.require(:raisely_campaign).permit(:api_key)
+    def new_campaign_params
+      params.require(:raisely_campaign).permit(:campaign_uuid, :api_key)
     end
 
-    def load_account
-      @account = current_user.accounts.find(params[:account_id])
+    def update_campaign_params
+      params.require(:raisely_campaign).permit(:api_key)
     end
 
     def load_campaign

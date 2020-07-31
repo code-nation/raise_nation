@@ -2,10 +2,9 @@
   .card-header.py-3
     %span.m-0.font-weight-bold.text-primary Nations listing
     .float-right
-      - if @account.owner?(current_user)
-        = link_to_modal '', new_accounts_add_nation_path(account_id: params[:id]), class: 'btn btn-sm btn-primary add-nation' do
-          %i.fas.fa-plus.fa-sm.fa-fw.mr-2.text-gray-400
-          Add Nation
+      = link_to_modal '', new_accounts_nation_path(account_id: params[:id]), class: 'btn btn-sm btn-primary add-nation' do
+        %i.fas.fa-plus.fa-sm.fa-fw.mr-2.text-gray-400
+        Add Nation
 
   .card-body
     - if nations.any?
@@ -20,7 +19,7 @@
               %tr
                 %td= nation.slug
                 %td
-                  = link_to connect_nation_path(id: nation.id), class: 'btn btn-sm btn-success connect-nation' do
+                  = link_to connect_accounts_nation_path(id: nation.id), class: 'btn btn-sm btn-success connect-nation' do
                     %i.fas.fa-key
                     Connect
     - else

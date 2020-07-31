@@ -13,9 +13,11 @@ Rails.application.routes.draw do
   namespace :accounts do
     resources :toggle_notification, only: [:update]
     resources :invite_user, only: [:create]
-    resources :add_nation, only: [:new, :create]
-    resources :add_campaign, only: [:new, :create]
-    resources :raisely_campaigns, only: [:edit, :update]
+    resources :nations, only: [:new, :create] do
+      get :connect, on: :member
+      get :oauth, on: :collection
+    end
+    resources :raisely_campaigns, only: [:new, :create, :edit, :update]
   end
   namespace :settings do
     resources :update_current_account, only: [:update]
@@ -23,11 +25,6 @@ Rails.application.routes.draw do
   end
 
   resources :accounts
-
-  resources :nations, only: [] do
-    get :connect, on: :member
-    get :oauth, on: :collection
-  end
 
   root 'dashboard#index'
 end

@@ -2,10 +2,9 @@
   .card-header.py-3
     %span.m-0.font-weight-bold.text-primary Raisely Campaigns listing
     .float-right
-      - if @account.owner?(current_user)
-        = link_to_modal '', new_accounts_add_campaign_path(account_id: params[:id]), class: 'btn btn-sm btn-primary add-nation' do
-          %i.fas.fa-plus.fa-sm.fa-fw.mr-2.text-gray-400
-          Add Campaign
+      = link_to_modal '', new_accounts_raisely_campaign_path(account_id: params[:id]), class: 'btn btn-sm btn-primary add-nation' do
+        %i.fas.fa-plus.fa-sm.fa-fw.mr-2.text-gray-400
+        Add Campaign
 
   .card-body
     - if campaigns.any?

@@ -1,4 +1,4 @@
-if (!window.RaiseNation) { window.RaiseNation = {} };
+window.RaiseNation = window.RaiseNation || {};
 
 $.extend(window.RaiseNation, {
   /* Note that if $form is null the link
