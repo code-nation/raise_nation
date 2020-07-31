@@ -2,7 +2,6 @@ module Accounts
   class RaiselyCampaignsController < ApplicationController
     include AccountLoadableConcern
 
-    skip_before_action :load_account, only: [:new, :create]
     before_action :load_campaign, only: [:edit, :update]
 
     def new
