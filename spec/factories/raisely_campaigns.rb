@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :raisely_campaign do
-    campaign_uuid { 'MyString' }
-    api_key { 'MyString' }
-    account { nil }
+    campaign_uuid { SecureRandom.uuid }
+    api_key { SecureRandom.uuid }
+    account
   end
 end

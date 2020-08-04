@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :nation do
-    slug { 'MyString' }
-    token { 'MyString' }
+    slug { Faker::Company.name.downcase.underscore }
+    token { SecureRandom.uuid }
+    account
   end
 end

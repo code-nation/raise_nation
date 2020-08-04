@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe InvitationMailer, type: :mailer do
   let(:user) { create(:user) }
-  let(:inviter_name) { Faker::Name.first_name }
+  let(:inviter_name) { 'Test Name' }
   let(:org_name) { Faker::Company.name }
 
   describe 'account_user_invitation' do

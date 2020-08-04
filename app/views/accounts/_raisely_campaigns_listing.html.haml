@@ -1,15 +1,15 @@
 .card.shadow.mb-4
   .card-header.py-3
     %span.m-0.font-weight-bold.text-primary Raisely Campaigns listing
-    .float-right
-      = link_to_modal '', new_accounts_raisely_campaign_path(account_id: params[:id]), class: 'btn btn-sm btn-primary add-nation' do
+    .raisely-campaigns-listing-controls.float-right
+      = link_to_modal '', new_accounts_raisely_campaign_path(account_id: params[:id]), class: 'btn btn-sm btn-primary add-campaign' do
         %i.fas.fa-plus.fa-sm.fa-fw.mr-2.text-gray-400
         Add Campaign
 
   .card-body
     - if campaigns.any?
       .table-responsive
-        %table#dataTable.table.table-bordered{:cellspacing => "0", :width => "100%"}
+        %table#dataTable.table.table-bordered.raisely-campaigns-listing{:cellspacing => "0", :width => "100%"}
           %thead
             %tr
               %th Campaign UUID
@@ -21,7 +21,7 @@
                 %td= campaign.campaign_uuid
                 %td= campaign.api_key_truncated
                 %td
-                  = link_to_modal '', edit_accounts_raisely_campaign_path(account_id: params[:id], id: campaign.id), class: 'btn-circle btn-success configure-account' do
+                  = link_to_modal '', edit_accounts_raisely_campaign_path(account_id: params[:id], id: campaign.id), class: "btn-circle btn-success edit-campaign-btn-#{campaign.id}" do
                     %i.fas.fa-edit
     - else
       %span No campaigns yet.
