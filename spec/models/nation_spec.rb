@@ -1,5 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Nation, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { build(:nation) }
+
+  it { should belong_to(:account) }
+
+  it { should validate_presence_of(:slug) }
+  it { should validate_uniqueness_of(:slug) }
 end

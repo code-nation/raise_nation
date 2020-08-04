@@ -24,6 +24,7 @@ RSpec.describe 'Add nation under an account', type: :system do
   before(:each) do
     allow_any_instance_of(Nation).to receive(:nb_auth_client).and_return(auth_client)
     allow_any_instance_of(Nation).to receive(:nb_api_token).and_return(nb_api_token)
+    allow(Nation).to receive(:find).and_return(Nation.new(account_id: account.id))
     allow(auth_code).to receive(:authorize_url).and_return(auth_url)
 
     login_as(user, scope: :user)

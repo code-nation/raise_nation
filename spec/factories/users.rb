@@ -12,4 +12,10 @@ FactoryBot.define do
       user.accounts << FactoryBot.build_list(:account, rand(1..3))
     end
   end
+
+  trait :with_all do
+    after(:build) do |user|
+      user.accounts << FactoryBot.build_list(:account, rand(1..3), :with_nations_and_campaigns)
+    end
+  end
 end

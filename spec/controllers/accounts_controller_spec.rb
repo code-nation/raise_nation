@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe AccountsController, type: :controller do
-  let(:user) { create(:user, :with_accounts) }
+  let(:user) { create(:user, :with_all) }
   before { sign_in user }
 
   describe 'GET show' do
@@ -15,6 +15,8 @@ RSpec.describe AccountsController, type: :controller do
       expect(response).to have_http_status(:ok)
       expect(assigns(:account)).to eq account
       expect(assigns(:users)).to eq account.users
+      expect(assigns(:nations)).to eq account.nations
+      expect(assigns(:campaigns)).to eq account.raisely_campaigns
       expect(assigns(:user_invite_form)).to be_an_instance_of(UserInvitation)
     end
   end
