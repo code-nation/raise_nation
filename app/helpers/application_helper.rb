@@ -27,4 +27,12 @@ module ApplicationHelper
       link_to title, url, options
     end
   end
+
+  def pills_tag(arr)
+    tag.div(class: 'pills-tag') do
+      arr.map do |item|
+        tag.span(item, class: 'badge badge-pill badge-secondary')
+      end.inject('', :+).html_safe
+    end
+  end
 end

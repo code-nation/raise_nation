@@ -17,10 +17,16 @@
           %tbody
             - nations.each do |nation|
               %tr
-                %td= nation.slug
                 %td
-                  = link_to connect_accounts_nation_path(id: nation.id), class: 'btn btn-sm btn-success connect-nation' do
-                    %i.fas.fa-key
-                    Connect
+                  = nation.slug
+                  - if nation.connected?
+                    %span{ class: 'badge badge-pill badge-secondary' } Connected
+                %td
+                  - if nation.connected?
+                    = link_to 'Reconnect', connect_accounts_nation_path(id: nation.id), class: 'connect-nation'
+                  - else
+                    = link_to connect_accounts_nation_path(id: nation.id), class: 'btn btn-sm btn-success connect-nation' do
+                      %i.fas.fa-key
+                      Connect
     - else
       %span No nations yet.

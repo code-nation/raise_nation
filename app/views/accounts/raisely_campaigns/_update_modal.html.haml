@@ -6,5 +6,6 @@
         %span{"aria-hidden" => "true"} ×
     .modal-body
       = bootstrap_form_for @campaign, url: accounts_raisely_campaign_path(account_id: @account.id, id: @campaign.id) do |f|
-        = f.text_field :api_key, value: ''
+        = f.text_field :name
+        = f.text_field :api_key
         = f.submit 'Update Campaign', class: 'btn btn-primary btn-sm update-campaign-submit'
