@@ -6,16 +6,21 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-puts "Deleting Users and Accounts"
+puts "Deleting data..."
 
 AccountUser.delete_all
 Account.delete_all
 User.delete_all
+Workflow.delete_all
 
 puts "Generating users..."
 
 5.times do |i|
-  user = User.create(email: "testuser#{i}@test.com", password: "P@ssw0rd!", first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, preferred_name: Faker::Name.first_name)
+  email = "testuser#{i}@test.com"
+  user = User.create(email: email, password: "P@ssw0rd!", first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, preferred_name: Faker::Name.first_name)
   puts "Populating #{user.email}'s' owned accounts..."
-  5.times { user.owned_accounts.create(organisation_name: Faker::Company.name) }
+  puts "Generating accounts with workflow for user #{email}..."
+  5.times {
+    user.owned_accounts.create(organisation_name: Faker::Company.name)
+  }
 end

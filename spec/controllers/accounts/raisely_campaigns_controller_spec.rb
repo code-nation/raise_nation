@@ -18,12 +18,13 @@ RSpec.describe Accounts::RaiselyCampaignsController, type: :controller do
 
   describe 'POST create' do
     let(:campaign_uuid) { SecureRandom.uuid }
+    let(:name) { Faker::Company.name }
     let(:api_key) { SecureRandom.uuid }
 
     it 'should create a nation' do
       post :create, params: {
         account_id: account.id,
-        raisely_campaign: { campaign_uuid: campaign_uuid, api_key: api_key }
+        raisely_campaign: { name: name, campaign_uuid: campaign_uuid, api_key: api_key }
       }
 
       expect(response).to have_http_status(:redirect)

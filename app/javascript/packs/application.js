@@ -12,6 +12,7 @@ require('popper.js')
 require("bootstrap/dist/js/bootstrap.bundle")
 require("jquery.easing/jquery.easing")
 require('@fortawesome/fontawesome-free/js/all')
+require('select2/dist/js/select2')
 require('imports-loader?define=>false!datatables.net')(window, $)
 require('imports-loader?define=>false!datatables.net-bs4')(window, $)
 require('./shared/sb-admin-2')
@@ -20,11 +21,13 @@ require('./shared/sb-admin-2')
 require("chartkick")
 require("chart.js")
 
+require('./shared/global-routes.js')
 require('./shared/demo/chart-area-demo')
 require('./shared/demo/chart-bar-demo')
 require('./shared/demo/chart-pie-demo')
 require('./shared/demo/datatables-demo')
 require('./shared/general-modal')
+require('./shared/select2')
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference

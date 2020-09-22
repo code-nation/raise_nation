@@ -1,0 +1,38 @@
+.row.justify-content-md-center.py-3
+  .col-md-6
+    %br
+    %br
+    %h5 Workflow data type:
+    = workflow_type_choices
+    = bootstrap_form_for @workflow do |f|
+      = f.text_field :name, class: "form-control"
+      = f.hidden_field :source_type, value: @workflow.source_type
+      = f.hidden_field :target_type, value: @workflow.target_type
+      = f.select :source_id, [], {}, { class: 'ajax-select2', 'data-ajax--url' => workflows_choices_path(workflow_type: 'nr', kind: 'source'), 'data-ajax--delay' => 250 }
+      = f.select :target_id, [], {}, { class: 'ajax-select2', 'data-ajax--url' => workflows_choices_path(workflow_type: 'nr', kind: 'target'), 'data-ajax--delay' => 250 }
+      = f.select :donor_tags, [], {}, { class: 'token-select2', multiple: true }
+      = f.select :recurring_donor_tags, [], {}, { class: 'token-select2', multiple: true }
+      %small (Separate tags by Comma or Enter key)
+      = f.check_box :is_active
+      = f.submit "Save", class: "btn btn-primary btn-lg btn-block"
+
+:javascript
+  $(function(){
+    $('.workflow-type-choices').find('input[type="radio"]').on('click', function(){
+      var currentType = $(this).parent().find('input[type="radio"]:checked').val();
+
+      if (currentType == 'nr') {
+        $('select[name="workflow[source_id]"]').data('ajax-Url', Routes.workflows_choices_path({ workflow_type: 'nr', kind: 'source' }));
+        $('select[name="workflow[target_id]"]').data('ajax-Url', Routes.workflows_choices_path({ workflow_type: 'nr', kind: 'target' }));
+        $('input[name="workflow[source_type]"]').val('Nation');
+        $('input[name="workflow[target_type]"]').val('RaiselyCampaign');
+      } else if (currentType == 'rn') {
+        $('select[name="workflow[source_id]"]').data('ajax-Url', Routes.workflows_choices_path({ workflow_type: 'rn', kind: 'source' }))
+        $('select[name="workflow[target_id]"]').data('ajax-Url', Routes.workflows_choices_path({ workflow_type: 'rn', kind: 'target' }))
+        $('input[name="workflow[source_type]"]').val('RaiselyCampaign');
+        $('input[name="workflow[target_type]"]').val('Nation');
+      }
+
+      $('.ajax-select2').trigger('ajaxurl:changed');
+    });
+  });
