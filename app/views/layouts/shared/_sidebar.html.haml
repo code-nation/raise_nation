@@ -17,6 +17,10 @@
     = link_to accounts_path, class: 'nav-link' do
       %i.fas.fa-fw.fa-address-book
       %span Accounts
+  %li{ class: "nav-item #{add_active_class(workflows_path)}"}
+    = link_to workflows_path, class: 'nav-link' do
+      %i.fas.fa-fw.fa-address-book
+      %span Workflows
   %li{ class: "nav-item #{add_active_class(current_account)}"}
     = link_to current_account, class: 'nav-link' do
       %i.fas.fa-fw.fa-cog

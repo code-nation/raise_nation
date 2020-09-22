@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_30_065116) do
+ActiveRecord::Schema.define(version: 2020_08_06_082941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,9 +89,27 @@ ActiveRecord::Schema.define(version: 2020_07_30_065116) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "workflows", force: :cascade do |t|
+    t.string "name"
+    t.string "source_type", null: false
+    t.bigint "source_id", null: false
+    t.string "target_type", null: false
+    t.bigint "target_id", null: false
+    t.bigint "account_id", null: false
+    t.string "donor_tag"
+    t.string "recurring_donor_tag"
+    t.boolean "is_active"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_workflows_on_account_id"
+    t.index ["source_type", "source_id"], name: "index_workflows_on_source_type_and_source_id"
+    t.index ["target_type", "target_id"], name: "index_workflows_on_target_type_and_target_id"
+  end
+
   add_foreign_key "account_users", "accounts"
   add_foreign_key "account_users", "users"
   add_foreign_key "accounts", "users"
   add_foreign_key "nations", "accounts"
   add_foreign_key "raisely_campaigns", "accounts"
+  add_foreign_key "workflows", "accounts"
 end

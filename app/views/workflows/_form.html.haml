@@ -1,0 +1,14 @@
+.row.justify-content-md-center
+  .col-md-6
+    %br
+    %br
+    %h5 Workflow data type:
+    = workflow_type_choices
+    = bootstrap_form_for @workflow do |f|
+      = f.select :source, [], {}, { class: 'ajax-select2', 'data-ajax--url' => workflows_choices_path(workflow_type: 'nr', kind: 'source'), 'data-ajax--cache' => 'true', 'data-ajax--delay' => 250 }
+      = f.select :target, [], {}, { class: 'ajax-select2', 'data-ajax--url' => workflows_choices_path(workflow_type: 'nr', kind: 'target'), 'data-ajax--cache' => 'true', 'data-ajax--delay' => 250 }
+      = f.text_field :name, class: "form-control"
+      = f.search_field :source, class: "form-control"
+      = f.submit "Save", class: "btn btn-primary btn-lg btn-block"
+%br
+%br

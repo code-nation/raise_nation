@@ -25,6 +25,10 @@ Rails.application.routes.draw do
   end
 
   resources :accounts
+  resources :workflows, only: [:index, :new, :create, :edit, :update]
+  namespace :workflows do
+    resources :choices, only: [:index]
+  end
 
   root 'dashboard#index'
 end

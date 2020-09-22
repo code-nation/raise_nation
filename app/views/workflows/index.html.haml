@@ -1,0 +1,26 @@
+%h1.h3.mb-2.text-gray-800 Workflows
+%p.mb-4
+  List of workflows under current account
+/ DataTales Example
+.card.shadow.mb-4
+  .card-header.py-3
+    %h6.m-0.font-weight-bold.text-primary Workflow Listing
+  .card-body
+    .table-responsive
+      %table#dataTable.table.table-bordered{:cellspacing => "0", :width => "100%"}
+        %thead
+          %tr
+            %th Workflow ID
+            %th Name
+            %th Account
+            %th Donor Tag
+            %th Recurring Donor Tag
+        %tbody
+          - @workflows.each do |workflow|
+            %tr
+              %td= workflow.id
+              %td= workflow.name
+              %td= workflow.account&.organisation_name
+              %td= workflow.donor_tag
+              %td= workflow.recurring_donor_tag
+
