@@ -96,8 +96,8 @@ ActiveRecord::Schema.define(version: 2020_08_06_082941) do
     t.string "target_type", null: false
     t.bigint "target_id", null: false
     t.bigint "account_id", null: false
-    t.string "donor_tag"
-    t.string "recurring_donor_tag"
+    t.string "donor_tag", array: true
+    t.string "recurring_donor_tag", array: true
     t.boolean "is_active"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

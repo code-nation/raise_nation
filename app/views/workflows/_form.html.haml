@@ -5,10 +5,11 @@
     %h5 Workflow data type:
     = workflow_type_choices
     = bootstrap_form_for @workflow do |f|
-      = f.select :source, [], {}, { class: 'ajax-select2', 'data-ajax--url' => workflows_choices_path(workflow_type: 'nr', kind: 'source'), 'data-ajax--cache' => 'true', 'data-ajax--delay' => 250 }
-      = f.select :target, [], {}, { class: 'ajax-select2', 'data-ajax--url' => workflows_choices_path(workflow_type: 'nr', kind: 'target'), 'data-ajax--cache' => 'true', 'data-ajax--delay' => 250 }
       = f.text_field :name, class: "form-control"
-      = f.search_field :source, class: "form-control"
+      = f.hidden_field :source_type, value: @workflow.source_type
+      = f.hidden_field :target_type, value: @workflow.target_type
+      = f.select :source_id, [], {}, { class: 'ajax-select2', 'data-ajax--url' => workflows_choices_path(workflow_type: 'nr', kind: 'source'), 'data-ajax--cache' => 'true', 'data-ajax--delay' => 250 }
+      = f.select :target_id, [], {}, { class: 'ajax-select2', 'data-ajax--url' => workflows_choices_path(workflow_type: 'nr', kind: 'target'), 'data-ajax--cache' => 'true', 'data-ajax--delay' => 250 }
       = f.submit "Save", class: "btn btn-primary btn-lg btn-block"
 %br
 %br
