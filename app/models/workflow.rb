@@ -46,20 +46,7 @@ class Workflow < ApplicationRecord
   def process_webhook!(url)
     return if webhook_ref.present?
 
-    webhook_ref = case source.class.name
-                  when Nation.name
-                    client = source.nb_client
-                    resp = client.call(:webhooks, :create, {
-                      webhook: {
-                        version: 4,
-                        url: url,
-                        event: 'donation_succeeded'
-                      }
-                    })
-                    resp.dig("webhook").dig("id")
-                  when RaiselyCampaign.name
-                    source.create_webhook(url)
-                  end
+    webhook_ref = source.create_webhook(url)
     update(webhook_ref: webhook_ref) if webhook_ref.present?
   end
 
