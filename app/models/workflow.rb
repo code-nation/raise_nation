@@ -6,6 +6,17 @@ class Workflow < ApplicationRecord
   DEFAULT_SOURCE_TYPE = 'Nation'.freeze
   DEFAULT_TARGET_TYPE = 'RaiselyCampaign'.freeze
 
+  CHOICES_WORKFLOW_HASH = {
+    "nr" => {
+      "source" => Nation.name,
+      "target" => RaiselyCampaign.name
+    },
+    "rn" => {
+      "source" => RaiselyCampaign.name,
+      "target" => Nation.name
+    }
+  }
+
   attr_accessor :type
 
   before_save :cleanup_tags

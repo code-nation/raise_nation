@@ -3,62 +3,18 @@ module Workflows
     before_action :authenticate_user!
 
     def index
-      render json: case params[:workflow_type]
-      when 'nr'
-        case params[:kind]
-        when 'source'
+      model_klass_name = Workflow::CHOICES_WORKFLOW_HASH[params[:workflow_type]][params[:kind]]
+      query_attr = Module.const_get(model_klass_name).query_attr
+
+      render json: {
+        results: current_account.send(model_klass_name.pluralize.underscore)
+          .where("#{query_attr} LIKE ?", "%#{params[:q]}%").map do |item|
           {
-            results: current_account.nations.where("slug LIKE ?", "%#{params[:q]}%").map { |item|
-              {
-                id: item.id,
-                text: item.slug
-              }
-            }
-          }
-        when 'target'
-          {
-            results: current_account.raisely_campaigns.where("campaign_uuid LIKE ?", "%#{params[:q]}%").map { |item|
-              {
-                id: item.id,
-                text: item.campaign_uuid
-              }
-            }
-          }
-        else
-          {
-            results: []
+            id: item.id,
+            text: item.send(query_attr)
           }
         end
-      when 'rn'
-        case params[:kind]
-        when 'source'
-          {
-            results: current_account.raisely_campaigns.where("campaign_uuid LIKE ?", "%#{params[:q]}%").map { |item|
-              {
-                id: item.id,
-                text: item.campaign_uuid
-              }
-            }
-          }
-        when 'target'
-          {
-            results: current_account.nations.where("slug LIKE ?", "%#{params[:q]}%").map { |item|
-              {
-                id: item.id,
-                text: item.slug
-              }
-            }
-          }
-        else
-          {
-            results: []
-          }
-        end
-      else
-        {
-          results: []
-        }
-      end
+      }
     end
   end
 end

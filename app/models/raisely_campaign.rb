@@ -13,6 +13,10 @@ class RaiselyCampaign < ApplicationRecord
 
   WEBHOOK_API_URL = 'https://api.raisely.com/v3/webhooks'.freeze
 
+  def self.query_attr
+    "campaign_uuid"
+  end
+
   def api_key_truncated
     api_key.truncate(20, omission: 'XXX')
   end

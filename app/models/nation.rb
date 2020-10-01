@@ -8,6 +8,10 @@ class Nation < ApplicationRecord
 
   DONATION_SUCCEEDED = 'donation_succeeded'.freeze
 
+  def self.query_attr
+    "slug"
+  end
+
   def create_webhook(webhook_url)
     resp = nb_client.call(:webhooks, :create, {
       webhook: {
