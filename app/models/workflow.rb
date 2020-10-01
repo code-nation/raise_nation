@@ -59,6 +59,9 @@ class Workflow < ApplicationRecord
 
     webhook_ref = source.create_webhook(url)
     update(webhook_ref: webhook_ref) if webhook_ref.present?
+  rescue
+    puts "Cannot process workflow due to invalid api key or token, skipping..."
+    false
   end
 
   private
