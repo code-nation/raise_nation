@@ -10,12 +10,20 @@ class WorkflowsController < ApplicationController
   end
 
   def create
-    @workflow = current_account.workflows.create!(workflow_params)
+    @workflow = current_account.workflows.new(workflow_params)
+
+    if @workflow.save
+      @workflow.reload.process_webhook!(webhooks_donation_given_url(host: "https://a7d08663e5b3.ngrok.io"))
+      redirect_to workflows_path, notice: 'Workflow was successfully created.'
+    else
+      render :new
+    end
   end
 
   private
 
   def workflow_params
-    params.require(:workflow).permit(:source_id, :target_id, :source_type, :target_type, :name)
+    params.require(:workflow).permit(:source_id, :target_id, :source_type, :target_type,
+                                     :name, :is_active, donor_tags: [], recurring_donor_tags: [])
   end
 end

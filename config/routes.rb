@@ -30,5 +30,8 @@ Rails.application.routes.draw do
     resources :choices, only: [:index]
   end
 
+  # Webhook endpoints
+  post "webhooks/donation_given", to: "webhooks#donation_given"
+
   root 'dashboard#index'
 end

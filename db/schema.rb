@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_06_082941) do
+ActiveRecord::Schema.define(version: 2020_09_29_063625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,11 +96,12 @@ ActiveRecord::Schema.define(version: 2020_08_06_082941) do
     t.string "target_type", null: false
     t.bigint "target_id", null: false
     t.bigint "account_id", null: false
-    t.string "donor_tag", array: true
-    t.string "recurring_donor_tag", array: true
+    t.string "donor_tags", default: [], array: true
+    t.string "recurring_donor_tags", default: [], array: true
     t.boolean "is_active"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "webhook_ref"
     t.index ["account_id"], name: "index_workflows_on_account_id"
     t.index ["source_type", "source_id"], name: "index_workflows_on_source_type_and_source_id"
     t.index ["target_type", "target_id"], name: "index_workflows_on_target_type_and_target_id"

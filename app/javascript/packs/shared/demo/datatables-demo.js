@@ -1,5 +1,5 @@
 // Call the dataTables jQuery plugin
-$(document).on('turbolinks:load', function() {
+$(document).on('ready', function() {
   $('#dataTable').DataTable({
     'aoColumnDefs': [{
         'bSortable': false,

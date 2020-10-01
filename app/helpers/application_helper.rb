@@ -3,6 +3,7 @@ module ApplicationHelper
   include TemplateNavHelper
 
   DEFAULT_DATE_FORMAT = '%-d %b %Y'.freeze
+  PILL_CLASSES = %w[primary secondary success warning info light dark].freeze
 
   def accounts_without_current(limit = 10)
     return Account.none unless current_account
@@ -25,6 +26,14 @@ module ApplicationHelper
       end
     else
       link_to title, url, options
+    end
+  end
+
+  def pills_tag(arr)
+    tag.div(class: 'pills-tag') do
+      arr.map do |item|
+        tag.span(item, class: "badge badge-pill badge-#{PILL_CLASSES.sample}")
+      end.inject('', :+).html_safe
     end
   end
 end

@@ -5,8 +5,8 @@ class CreateWorkflows < ActiveRecord::Migration[6.0]
       t.references :source, null: false, polymorphic: true
       t.references :target, null: false, polymorphic: true
       t.references :account, null: false, foreign_key: true
-      t.string :donor_tag, array: true
-      t.string :recurring_donor_tag, array: true
+      t.string :donor_tags, array: true, default: []
+      t.string :recurring_donor_tags, array: true, default: []
       t.boolean :is_active
 
       t.timestamps

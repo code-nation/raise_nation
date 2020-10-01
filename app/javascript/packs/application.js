@@ -21,6 +21,7 @@ require('./shared/sb-admin-2')
 require("chartkick")
 require("chart.js")
 
+require('./shared/global-routes.js')
 require('./shared/demo/chart-area-demo')
 require('./shared/demo/chart-bar-demo')
 require('./shared/demo/chart-pie-demo')
