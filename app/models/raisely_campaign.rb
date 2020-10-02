@@ -5,6 +5,7 @@ require 'openssl'
 class RaiselyCampaign < ApplicationRecord
   belongs_to :account
 
+  validates :name, presence: true
   validates :campaign_uuid, presence: true
   validates :api_key, presence: true
   validates :campaign_uuid, uniqueness: true, if: -> { campaign_uuid.present? }
@@ -14,7 +15,7 @@ class RaiselyCampaign < ApplicationRecord
   WEBHOOK_API_URL = 'https://api.raisely.com/v3/webhooks'.freeze
 
   def self.query_attr
-    "campaign_uuid"
+    "name"
   end
 
   def api_key_truncated

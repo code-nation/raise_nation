@@ -12,6 +12,7 @@
       = f.select :target_id, [], {}, { class: 'ajax-select2', 'data-ajax--url' => workflows_choices_path(workflow_type: 'nr', kind: 'target'), 'data-ajax--delay' => 250 }
       = f.select :donor_tags, [], {}, { class: 'token-select2', multiple: true }
       = f.select :recurring_donor_tags, [], {}, { class: 'token-select2', multiple: true }
+      %small (Separate tags by Comma or Enter key)
       = f.check_box :is_active
       = f.submit "Save", class: "btn btn-primary btn-lg btn-block"
 %br

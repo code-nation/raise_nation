@@ -34,11 +34,11 @@ module Accounts
     private
 
     def new_campaign_params
-      params.require(:raisely_campaign).permit(:campaign_uuid, :api_key)
+      params.require(:raisely_campaign).permit(:name, :campaign_uuid, :api_key)
     end
 
     def update_campaign_params
-      params.require(:raisely_campaign).permit(:api_key)
+      params.require(:raisely_campaign).permit(:name, :api_key)
     end
 
     def load_campaign
