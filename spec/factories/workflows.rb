@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :workflow do
-    name { "MyString" }
+    name { Faker::Company.name }
     source { nil }
     target { nil }
-    donor_tag { "MyString" }
-    recurring_donor_tag { "MyString" }
+    donor_tag { [Faker::Lorem.word] }
+    recurring_donor_tag { [Faker::Lorem.word] }
     is_active { false }
     account { nil }
   end

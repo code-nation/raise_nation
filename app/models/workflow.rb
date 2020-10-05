@@ -7,15 +7,15 @@ class Workflow < ApplicationRecord
   DEFAULT_TARGET_TYPE = 'RaiselyCampaign'.freeze
 
   CHOICES_WORKFLOW_HASH = {
-    "nr" => {
-      "source" => Nation.name,
-      "target" => RaiselyCampaign.name
+    'nr' => {
+      'source' => Nation.name,
+      'target' => RaiselyCampaign.name
     },
-    "rn" => {
-      "source" => RaiselyCampaign.name,
-      "target" => Nation.name
+    'rn' => {
+      'source' => RaiselyCampaign.name,
+      'target' => Nation.name
     }
-  }
+  }.freeze
 
   attr_accessor :type
 
@@ -50,8 +50,6 @@ class Workflow < ApplicationRecord
       save
       process_webhook!(url)
     end
-  rescue
-    false
   end
 
   def process_webhook!(url)
@@ -59,9 +57,6 @@ class Workflow < ApplicationRecord
 
     webhook_ref = source.create_webhook(url)
     update(webhook_ref: webhook_ref) if webhook_ref.present?
-  rescue
-    puts "Cannot process workflow due to invalid api key or token, skipping..."
-    false
   end
 
   private

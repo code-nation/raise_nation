@@ -12,10 +12,11 @@ class RaiselyCampaign < ApplicationRecord
 
   attr_accessor :token
 
+  DONATION_CREATED = 'donation.created'.freeze
   WEBHOOK_API_URL = 'https://api.raisely.com/v3/webhooks'.freeze
 
   def self.query_attr
-    "name"
+    'name'
   end
 
   def api_key_truncated
@@ -23,20 +24,24 @@ class RaiselyCampaign < ApplicationRecord
   end
 
   def create_webhook(webhook_url)
-    body = {
-      data: {
-        url: webhook_url,
-        events: ["donation.created"],
-        campaignUuid: campaign_uuid
-      }
-    }.to_json
-
     resp = Faraday.post(RaiselyCampaign::WEBHOOK_API_URL) do |req|
       req.headers['Content-Type'] = 'application/json'
       req.headers['Authorization'] = "Bearer #{api_key}"
-      req.body = body
+      req.body = webhook_payload(webhook_url)
     end
 
-    JSON.parse(resp.body).dig("data").dig("uuid")
+    JSON.parse(resp.body).dig('data').dig('uuid')
+  end
+
+  private
+
+  def webhook_payload(webhook_url)
+    {
+      data: {
+        url: webhook_url,
+        events: [RaiselyCampaign::DONATION_CREATED],
+        campaignUuid: campaign_uuid
+      }
+    }.to_json
   end
 end
