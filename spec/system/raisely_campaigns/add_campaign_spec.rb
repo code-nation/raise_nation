@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Add campaign under an account', type: :system do
   let!(:user) { create(:user, :with_accounts) }
   let!(:account) { user.accounts.first }
+  let(:name) { Faker::Company.name }
   let(:campaign_uuid) { SecureRandom.uuid }
   let(:api_key) { SecureRandom.uuid }
 
@@ -21,6 +22,7 @@ RSpec.describe 'Add campaign under an account', type: :system do
 
     within('div.modal-dialog') do
       expect(page).to have_content('Add Campaign')
+      find('input#raisely_campaign_name').set(name)
       find('input#raisely_campaign_campaign_uuid').set(campaign_uuid)
       find('input#raisely_campaign_api_key').set(api_key)
       find('input.add-campaign-submit').click
