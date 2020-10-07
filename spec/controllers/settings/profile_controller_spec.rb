@@ -7,6 +7,7 @@ RSpec.describe Settings::ProfileController, type: :controller do
   describe 'PUT update' do
     let(:first_name) { 'Charles' }
     let(:last_name) { 'Babbage' }
+    let(:preferred_name) { 'Preferson' }
     let(:email) { 'someemail@test.com' }
     let(:current_password) { '' }
     let(:password) { '' }
@@ -18,6 +19,7 @@ RSpec.describe Settings::ProfileController, type: :controller do
         user: {
           first_name: first_name,
           last_name: last_name,
+          preferred_name: preferred_name,
           email: email,
           current_password: current_password,
           password: password,
@@ -37,6 +39,7 @@ RSpec.describe Settings::ProfileController, type: :controller do
       user.reload
       expect(user.first_name).to eq first_name
       expect(user.last_name).to eq last_name
+      expect(user.preferred_name).to eq preferred_name
       expect(user.email).to eq email
       expect(user.valid_password?(password)).to eq false
     end
