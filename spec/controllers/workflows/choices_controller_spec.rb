@@ -21,8 +21,8 @@ RSpec.describe Workflows::ChoicesController, type: :controller do
       expect(response).to have_http_status(:ok)
       json = JSON.parse(response.body)
       expect(response).to have_http_status(:ok)
-      expect(json["results"][0]["text"]).to eq nation1.slug
-      expect(json["results"][0]["id"]).to eq nation1.id
+      expect(json['results'][0]['text']).to eq nation1.slug
+      expect(json['results'][0]['id']).to eq nation1.id
     end
 
     context 'kind is target' do
@@ -32,8 +32,8 @@ RSpec.describe Workflows::ChoicesController, type: :controller do
         expect(response).to have_http_status(:ok)
         json = JSON.parse(response.body)
         expect(response).to have_http_status(:ok)
-        expect(json["results"][0]["text"]).to eq raisely1.name
-        expect(json["results"][0]["id"]).to eq raisely1.id
+        expect(json['results'][0]['text']).to eq raisely1.name
+        expect(json['results'][0]['id']).to eq raisely1.id
       end
     end
 
@@ -44,8 +44,8 @@ RSpec.describe Workflows::ChoicesController, type: :controller do
         expect(response).to have_http_status(:ok)
         json = JSON.parse(response.body)
         expect(response).to have_http_status(:ok)
-        expect(json["results"][0]["text"]).to eq raisely1.name
-        expect(json["results"][0]["id"]).to eq raisely1.id
+        expect(json['results'][0]['text']).to eq raisely1.name
+        expect(json['results'][0]['id']).to eq raisely1.id
       end
 
       context 'kind is target' do
@@ -55,8 +55,8 @@ RSpec.describe Workflows::ChoicesController, type: :controller do
           expect(response).to have_http_status(:ok)
           json = JSON.parse(response.body)
           expect(response).to have_http_status(:ok)
-          expect(json["results"][0]["text"]).to eq nation1.slug
-          expect(json["results"][0]["id"]).to eq nation1.id
+          expect(json['results'][0]['text']).to eq nation1.slug
+          expect(json['results'][0]['id']).to eq nation1.id
         end
       end
     end
@@ -68,7 +68,7 @@ RSpec.describe Workflows::ChoicesController, type: :controller do
         expect(response).to have_http_status(:ok)
         json = JSON.parse(response.body)
         expect(response).to have_http_status(:ok)
-        expect(json["results"]).to be_blank
+        expect(json['results']).to be_blank
       end
     end
   end

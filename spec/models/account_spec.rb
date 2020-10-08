@@ -6,6 +6,7 @@ RSpec.describe Account, type: :model do
   it { should belong_to(:owner).class_name('User').with_foreign_key(:user_id).inverse_of(:owned_accounts) }
   it { should have_many(:account_users) }
   it { should have_many(:users) }
+  it { should have_many(:workflows) }
 
   it { should validate_presence_of(:organisation_name) }
   it { should validate_uniqueness_of(:organisation_name) }
