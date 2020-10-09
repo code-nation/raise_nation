@@ -2,6 +2,7 @@ class Workflow < ApplicationRecord
   belongs_to :source, polymorphic: true
   belongs_to :target, polymorphic: true
   belongs_to :account
+  has_many :donations
 
   DEFAULT_SOURCE_TYPE = 'Nation'.freeze
   DEFAULT_TARGET_TYPE = 'RaiselyCampaign'.freeze
