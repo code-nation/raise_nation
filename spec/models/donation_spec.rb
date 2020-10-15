@@ -7,6 +7,6 @@ RSpec.describe Donation, type: :model do
   it { should validate_presence_of(:donation_type) }
 
   it 'donation types' do
-    expect(Donation.donation_types.keys).to eq(['raisely_campaign', 'nation'])
+    expect(Donation.donation_types.keys).to eq(%w[raisely_campaign nation])
   end
 end

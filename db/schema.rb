@@ -36,10 +36,17 @@ ActiveRecord::Schema.define(version: 2020_10_09_080804) do
 
   create_table "donations", force: :cascade do |t|
     t.bigint "workflow_id"
+    t.datetime "succeeded_at"
+    t.integer "amount_cents", default: 0, null: false
+    t.string "amount_currency", default: "USD", null: false
+    t.integer "frequency"
+    t.string "external_id"
+    t.string "donor_external_id"
+    t.integer "donor_id"
     t.jsonb "webhook_data"
-    t.integer "donation_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["donor_id"], name: "index_donations_on_donor_id"
     t.index ["workflow_id"], name: "index_donations_on_workflow_id"
   end
 

@@ -13,7 +13,7 @@ class WorkflowsController < ApplicationController
     @workflow = current_account.workflows.new(workflow_params)
 
     if @workflow.save
-      @workflow.reload.process_webhook!(webhooks_donation_given_url)
+      @workflow.reload.process_webhook!(webhooks_donation_given_url(host: 'https://05c2452f17a5.ngrok.io'))
       redirect_to workflows_path, notice: 'Workflow was successfully created.'
     else
       render :new
