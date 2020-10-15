@@ -5,6 +5,7 @@ class Account < ApplicationRecord
   has_many :raisely_campaigns, dependent: :destroy
   has_many :users, through: :account_users
   has_many :workflows, dependent: :destroy
+  has_many :donations, through: :workflows
 
   validates :organisation_name, presence: true, uniqueness: true
 

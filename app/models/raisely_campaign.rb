@@ -3,6 +3,8 @@ require 'net/http'
 require 'openssl'
 
 class RaiselyCampaign < ApplicationRecord
+  include CampaignNameWithTypeConcern
+
   belongs_to :account
 
   validates :name, presence: true

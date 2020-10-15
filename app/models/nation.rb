@@ -1,5 +1,6 @@
 class Nation < ApplicationRecord
   include NationSync
+  include CampaignNameWithTypeConcern
 
   belongs_to :account
 
@@ -23,4 +24,6 @@ class Nation < ApplicationRecord
     resp = nb_client.call(:webhooks, :create, webhook_payload)
     resp.dig('webhook').dig('id')
   end
+
+  alias_attribute :name, :slug
 end

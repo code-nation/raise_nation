@@ -12,4 +12,11 @@ class Donation < ApplicationRecord
   }.freeze
 
   monetize :amount_cents
+
+  delegate :source, :target, to: :workflow
+
+  def workflow_source_target
+    return 'N/A' if !source && !target
+    [workflow.source&.name_with_type, workflow.target&.name_with_type].join(' to ')
+  end
 end

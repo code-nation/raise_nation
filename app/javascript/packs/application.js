@@ -26,6 +26,7 @@ require('./shared/demo/chart-area-demo')
 require('./shared/demo/chart-bar-demo')
 require('./shared/demo/chart-pie-demo')
 require('./shared/demo/datatables-demo')
+require('./shared/datatables')
 require('./shared/general-modal')
 require('./shared/select2')
 
