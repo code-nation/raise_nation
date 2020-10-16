@@ -17,6 +17,7 @@ class Donation < ApplicationRecord
 
   def workflow_source_target
     return 'N/A' if !source && !target
+
     [workflow.source&.name_with_type, workflow.target&.name_with_type].join(' to ')
   end
 end
