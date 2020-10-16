@@ -21,7 +21,7 @@ RSpec.describe RaiselyCampaign, type: :model do
   end
 
   describe '.query_attr' do
-    it { expect(RaiselyCampaign.name).to eq 'name' }
+    it { expect(RaiselyCampaign.name).to eq 'RaiselyCampaign' }
   end
 
   describe '#api_key_truncated' do
