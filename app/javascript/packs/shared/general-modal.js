@@ -48,6 +48,6 @@ $.extend(window.RaiseNation, {
   }
 });
 
-$(document).on('turbolinks:load', function(){
+$(document).on('ready', function(){
   RaiseNation.initGeneralModal();
 })

@@ -9,7 +9,7 @@ RSpec.describe 'Send invite to join account', type: :system do
   end
 
   it 'should invite user via email', js: true do
-    email = 'tst@tst.com'
+    email = 'test@test.com'
 
     visit "/accounts/#{account1.id}"
 
