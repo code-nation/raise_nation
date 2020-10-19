@@ -45,15 +45,8 @@ class Workflow < ApplicationRecord
     end
   end
 
-  def save_and_process_webhook!(url)
-    Workflow.transaction do
-      save
-      process_webhook!(url)
-    end
-  end
-
   def process_webhook!(url)
-    return if webhook_ref.present?
+    return true if webhook_ref.present?
 
     webhook_ref = source.create_webhook(url)
     update(webhook_ref: webhook_ref) if webhook_ref.present?
