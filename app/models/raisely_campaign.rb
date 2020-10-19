@@ -10,8 +10,6 @@ class RaiselyCampaign < ApplicationRecord
   validates :api_key, presence: true
   validates :campaign_uuid, uniqueness: true, if: -> { campaign_uuid.present? }
 
-  attr_accessor :token
-
   DONATION_CREATED = 'donation.created'.freeze
   WEBHOOK_API_URL = 'https://api.raisely.com/v3/webhooks'.freeze
 

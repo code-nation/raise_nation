@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   end
 
   resources :accounts
-  resources :workflows, only: [:index, :new, :create, :edit, :update]
+  resources :workflows, only: [:index, :new, :create]
   namespace :workflows do
     resources :choices, only: [:index]
   end
