@@ -56,6 +56,8 @@ class Workflow < ApplicationRecord
   def generate_raisely_donation!(params)
     donations.create!(
       webhook_data: params,
+      account: account,
+      donation_source: source,
       succeeded_at: params['createdAt'],
       amount_cents: params['amount'],
       # Currently no way to know the currency from Donation Resource API
@@ -69,6 +71,8 @@ class Workflow < ApplicationRecord
   def generate_nation_donation!(params)
     donations.create!(
       webhook_data: params,
+      account: account,
+      donation_source: source,
       succeeded_at: params[:succeeded_at],
       amount_cents: params[:amount_in_cents],
       # Currently no way to know the currency from Donation Resource API

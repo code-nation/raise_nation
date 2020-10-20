@@ -13,6 +13,10 @@ class Nation < ApplicationRecord
     'slug'
   end
 
+  def url
+    "https://#{slug}.nationbuilder.com"
+  end
+
   def create_webhook(webhook_url)
     webhook_payload = {
       webhook: {

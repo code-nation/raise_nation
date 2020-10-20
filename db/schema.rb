@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_09_080804) do
+ActiveRecord::Schema.define(version: 2020_10_20_080854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,11 @@ ActiveRecord::Schema.define(version: 2020_10_09_080804) do
     t.jsonb "webhook_data"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "account_id", null: false
+    t.string "donation_source_type"
+    t.bigint "donation_source_id"
+    t.index ["account_id"], name: "index_donations_on_account_id"
+    t.index ["donation_source_id", "donation_source_type"], name: "index_donations_on_donation_source_id_and_donation_source_type"
     t.index ["donor_id"], name: "index_donations_on_donor_id"
     t.index ["workflow_id"], name: "index_donations_on_workflow_id"
   end
@@ -143,6 +148,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_080804) do
   add_foreign_key "account_users", "accounts"
   add_foreign_key "account_users", "users"
   add_foreign_key "accounts", "users"
+  add_foreign_key "donations", "accounts"
   add_foreign_key "nations", "accounts"
   add_foreign_key "raisely_campaigns", "accounts"
   add_foreign_key "workflows", "accounts"

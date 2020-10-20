@@ -33,6 +33,10 @@ class RaiselyCampaign < ApplicationRecord
     JSON.parse(resp.body).dig('data').dig('uuid')
   end
 
+  def url
+    ""
+  end
+
   private
 
   def webhook_payload(webhook_url)

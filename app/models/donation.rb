@@ -1,8 +1,11 @@
 class Donation < ApplicationRecord
   belongs_to :workflow
+  belongs_to :account
+  belongs_to :donation_source, polymorphic: true
+
   validates :webhook_data, presence: true
 
-  enum frequency: { one_off: 0, recurring: 1 }
+  enum frequency: [:one_off, :recurring], _prefix: true
 
   # Moved here since enum should be loaded first
   DEFAULT_CURRENCY = 'USD'.freeze
@@ -14,10 +17,27 @@ class Donation < ApplicationRecord
   monetize :amount_cents
 
   delegate :source, :target, to: :workflow
+  delegate :url, to: :donation_source
 
   def workflow_source_target
     return 'N/A' if !source && !target
 
     [workflow.source&.name_with_type, workflow.target&.name_with_type].join(' to ')
   end
+
+  def external_donation_url
+    case donation_source.class.name
+    when Nation.name
+      "#{external_base_url}/admin/signups/#{donor_external_id}/donations/#{external_id}/edit"
+    when RaiselyCampaign.name
+    end
+  end
+
+  private
+
+  def set_account
+    self.account = workflow.account
+  end
+
+  alias_method :external_base_url, :url
 end
