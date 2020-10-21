@@ -13,6 +13,7 @@
           %thead
             %tr
               %th Name
+              %th Slug
               %th Campaign UUID
               %th API Key
               %th Actions
@@ -20,6 +21,7 @@
             - campaigns.each do |campaign|
               %tr
                 %td= campaign.name
+                %td= campaign.slug
                 %td= campaign.campaign_uuid
                 %td= campaign.api_key_truncated
                 %td

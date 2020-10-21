@@ -54,33 +54,29 @@ class Workflow < ApplicationRecord
   end
 
   def generate_raisely_donation!(params)
-    donations.create!(
-      webhook_data: params,
-      account: account,
-      donation_source: source,
-      succeeded_at: params['createdAt'],
-      amount_cents: params['amount'],
-      # Currently no way to know the currency from Donation Resource API
-      amount_currency: params['currency'],
-      frequency: raisely_donation_frequency(params['processing']),
-      external_id: params['uuid'],
-      donor_external_id: params['user']['uuid']
-    )
+    donations.create!(webhook_data: params,
+                      account: account,
+                      donation_source: source,
+                      succeeded_at: params['createdAt'],
+                      amount_cents: params['amount'],
+                      # Currently no way to know the currency from Donation Resource API
+                      amount_currency: params['currency'],
+                      frequency: raisely_donation_frequency(params['processing']),
+                      external_id: params['uuid'],
+                      donor_external_id: params['user']['uuid'])
   end
 
   def generate_nation_donation!(params)
-    donations.create!(
-      webhook_data: params,
-      account: account,
-      donation_source: source,
-      succeeded_at: params[:succeeded_at],
-      amount_cents: params[:amount_in_cents],
-      # Currently no way to know the currency from Donation Resource API
-      amount_currency: Donation::DEFAULT_CURRENCY,
-      frequency: nation_donation_frequency(params[:recurring_donation_id]),
-      external_id: params[:id],
-      donor_external_id: params[:donor_id]
-    )
+    donations.create!(webhook_data: params,
+                      account: account,
+                      donation_source: source,
+                      succeeded_at: params[:succeeded_at],
+                      amount_cents: params[:amount_in_cents],
+                      # Currently no way to know the currency from Donation Resource API
+                      amount_currency: Donation::DEFAULT_CURRENCY,
+                      frequency: nation_donation_frequency(params[:recurring_donation_id]),
+                      external_id: params[:id],
+                      donor_external_id: params[:donor_id])
   end
 
   private

@@ -5,7 +5,7 @@ class Donation < ApplicationRecord
 
   validates :webhook_data, presence: true
 
-  enum frequency: [:one_off, :recurring], _prefix: true
+  enum frequency: { one_off: 0, recurring: 1 }, _prefix: true
 
   # Moved here since enum should be loaded first
   DEFAULT_CURRENCY = 'USD'.freeze
@@ -25,11 +25,21 @@ class Donation < ApplicationRecord
     [workflow.source&.name_with_type, workflow.target&.name_with_type].join(' to ')
   end
 
+  def external_donor_url
+    case donation_source.class.name
+    when Nation.name
+      "#{external_base_url}/admin/signups/#{donor_external_id}/edit"
+    when RaiselyCampaign.name
+      "#{external_base_url.gsub(/campaigns.*/, 'people')}/#{donor_external_id}"
+    end
+  end
+
   def external_donation_url
     case donation_source.class.name
     when Nation.name
       "#{external_base_url}/admin/signups/#{donor_external_id}/donations/#{external_id}/edit"
     when RaiselyCampaign.name
+      "#{external_base_url}/donations/#{external_id}"
     end
   end
 
@@ -39,5 +49,5 @@ class Donation < ApplicationRecord
     self.account = workflow.account
   end
 
-  alias_method :external_base_url, :url
+  alias external_base_url url
 end

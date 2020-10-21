@@ -16,13 +16,13 @@
           %tbody
             - donations.each do |donation|
               %tr
-                %td= donation.external_id
-                %td= donation.donor_external_id
+                %td
+                  = link_to donation.external_id, donation.external_donation_url
+                %td
+                  = link_to donation.donor_external_id, donation.external_donor_url
                 %td= donation.workflow_source_target
                 %td= donation.amount
-                %td
-                  // Fool the DOM to fix sorting for dates
-                  %span.d-none= donation.succeeded_at
-                  %span= formatted_date(donation.succeeded_at)
+                %td{ data: { order: donation.succeeded_at } }
+                  = formatted_date(donation.succeeded_at)
     - else
       %span No donations yet.

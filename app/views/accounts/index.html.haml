@@ -25,12 +25,10 @@
               %td= account.organisation_name
               %td= account.owner&.full_name || 'N/A'
               %td= account.owner&.email || 'N/A'
-              %td
-                %span.d-none= account.created_at
-                %span= formatted_date(account.created_at)
-              %td
-                %span.d-none= account.updated_at
-                %span= formatted_date(account.updated_at)
+              %td{ data: { order: account.created_at } }
+                = formatted_date(account.created_at)
+              %td{ data: { order: account.updated_at } }
+                = formatted_date(account.updated_at)
               - checked = account.receive_notifications?(current_user)
               %td= check_box_tag :receive_notifications, checked, checked, class: 'account-receive-notification', data: { remote: true,
                 url: accounts_toggle_notification_path(account.id),

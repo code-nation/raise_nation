@@ -5,9 +5,15 @@ RSpec.describe 'Edit a campaign under an account', type: :system do
   let!(:account) { user.accounts.first }
   let(:api_key) { SecureRandom.uuid }
   let(:updated_api_key) { SecureRandom.uuid }
-  let!(:campaign) { create(:raisely_campaign, account: account, api_key: api_key) }
+  let!(:campaign) do
+    camp = build(:raisely_campaign, account: account, api_key: api_key)
+    allow(camp).to receive(:set_raisely_slug).and_return(true)
+    camp.save
+    camp
+  end
 
   before(:each) do
+    allow_any_instance_of(RaiselyCampaign).to receive(:set_raisely_slug).and_return(true)
     login_as(user, scope: :user)
   end
 

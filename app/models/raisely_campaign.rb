@@ -13,7 +13,10 @@ class RaiselyCampaign < ApplicationRecord
   validates :campaign_uuid, uniqueness: true, if: -> { campaign_uuid.present? }
 
   DONATION_CREATED = 'donation.created'.freeze
-  WEBHOOK_API_URL = 'https://api.raisely.com/v3/webhooks'.freeze
+  BASE_API_URL = 'https://api.raisely.com/v3'.freeze
+  WEBHOOK_API_URL = "#{BASE_API_URL}/webhooks".freeze
+
+  before_save :set_raisely_slug
 
   def self.query_attr
     'name'
@@ -34,10 +37,19 @@ class RaiselyCampaign < ApplicationRecord
   end
 
   def url
-    ""
+    "https://admin.raisely.com/campaigns/#{slug}"
   end
 
   private
+
+  def set_raisely_slug
+    resp = Faraday.get(RaiselyCampaign::BASE_API_URL + "/campaigns/#{campaign_uuid}") do |req|
+      req.headers['Content-Type'] = 'application/json'
+      req.headers['Authorization'] = "Bearer #{api_key}"
+    end
+
+    self.slug = JSON.parse(resp.body).dig('data').dig('path')
+  end
 
   def webhook_payload(webhook_url)
     {

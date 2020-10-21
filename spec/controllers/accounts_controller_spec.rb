@@ -1,7 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe AccountsController, type: :controller do
-  let(:user) { create(:user, :with_all) }
+  let(:user) do
+    allow_any_instance_of(RaiselyCampaign).to receive(:set_raisely_slug).and_return(true)
+    create(:user, :with_all)
+  end
+
   before { sign_in user }
 
   describe 'GET show' do

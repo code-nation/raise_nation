@@ -19,12 +19,18 @@ class WebhooksController < ApplicationController
   def process_nation_donation!
     source = Nation.find_by(slug: params[:nation_slug])
     workflow = Workflow.find_by(source: source)
+
+    return if source.nil? || workflow.nil?
+
     workflow.generate_nation_donation!(nation_donation_params)
   end
 
   def process_raisely_donation!
     source = RaiselyCampaign.find_by(campaign_uuid: raisely_campaign_uuid)
     workflow = Workflow.find_by(source: source)
+
+    return if source.nil? || workflow.nil?
+
     workflow.generate_raisely_donation!(raisely_donation_params)
   end
 
