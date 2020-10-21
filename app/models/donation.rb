@@ -19,6 +19,12 @@ class Donation < ApplicationRecord
   delegate :source, :target, to: :workflow
   delegate :url, to: :donation_source
 
+  after_create :update_raisely_slug!, if: :raisely_source?
+
+  def raisely_source?
+    source.is_a?(RaiselyCampaign)
+  end
+
   def workflow_source_target
     return 'N/A' if !source && !target
 
@@ -44,6 +50,14 @@ class Donation < ApplicationRecord
   end
 
   private
+
+  def update_raisely_slug!
+    raisely_slug = webhook_data['profile']['path']
+
+    return unless source.slug == raisely_slug
+
+    source.update_column('slug', raisely_slug)
+  end
 
   def set_account
     self.account = workflow.account

@@ -11,6 +11,8 @@ Rails/OutputSafety:
   Enabled: false
 Style/SymbolArray:
   Enabled: false
+Rails/SkipsModelValidations:
+  Enabled: false
 
 AllCops:
   Exclude:
