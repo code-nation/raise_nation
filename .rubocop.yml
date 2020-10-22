@@ -59,8 +59,13 @@ Style/RedundantRegexpEscape:
   Enabled: true
 Style/SlicingWithRange:
   Enabled: true
+Style/ExplicitBlockArgument:
+  Enabled: false
+Style/SingleArgumentDig:
+  Enabled: false
 
 AllCops:
+  NewCops: enable
   Exclude:
     - 'app/controllers/sb_admin_docs_controller.rb'
     - 'app/views/sb_admin_docs/*.html.haml'
