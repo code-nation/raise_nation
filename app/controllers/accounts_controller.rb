@@ -7,6 +7,7 @@ class AccountsController < ApplicationController
     @users = @account.users
     @nations = @account.nations
     @campaigns = @account.raisely_campaigns
+    @donations = @account.donations
     @user_invite_form = UserInvitation.new(account_id: @account.id)
   end
 

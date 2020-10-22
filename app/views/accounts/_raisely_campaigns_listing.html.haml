@@ -9,10 +9,11 @@
   .card-body
     - if campaigns.any?
       .table-responsive
-        %table#dataTable.table.table-bordered.raisely-campaigns-listing{:cellspacing => "0", :width => "100%"}
+        %table.raise-nation-datatable.table.table-bordered.raisely-campaigns-listing{:cellspacing => "0", :width => "100%"}
           %thead
             %tr
               %th Name
+              %th Slug
               %th Campaign UUID
               %th API Key
               %th Actions
@@ -20,6 +21,7 @@
             - campaigns.each do |campaign|
               %tr
                 %td= campaign.name
+                %td= campaign.slug
                 %td= campaign.campaign_uuid
                 %td= campaign.api_key_truncated
                 %td
