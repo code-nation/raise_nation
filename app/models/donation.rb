@@ -54,7 +54,7 @@ class Donation < ApplicationRecord
   def update_raisely_slug!
     raisely_slug = webhook_data['profile']['path']
 
-    return unless source.slug == raisely_slug
+    return if source.slug.eql?(raisely_slug)
 
     source.update_column('slug', raisely_slug)
   end
