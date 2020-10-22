@@ -8,6 +8,7 @@ RSpec.describe 'Add campaign under an account', type: :system do
   let(:api_key) { SecureRandom.uuid }
 
   before(:each) do
+    allow_any_instance_of(RaiselyCampaign).to receive(:set_raisely_slug).and_return(true)
     login_as(user, scope: :user)
   end
 

@@ -20,7 +20,7 @@ RSpec.describe 'User Login', type: :system do
 
   shared_examples_for 'not login successfully' do
     it do
-      expect(page). to have_text('Invalid Email or password.')
+      expect(page).to have_text('Invalid Email or password.')
     end
   end
 

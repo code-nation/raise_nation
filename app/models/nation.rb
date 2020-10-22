@@ -1,5 +1,6 @@
 class Nation < ApplicationRecord
   include NationSync
+  include CampaignNameWithTypeConcern
 
   belongs_to :account
 
@@ -10,6 +11,10 @@ class Nation < ApplicationRecord
 
   def self.query_attr
     'slug'
+  end
+
+  def url
+    "https://#{slug}.nationbuilder.com"
   end
 
   def create_webhook(webhook_url)
@@ -23,4 +28,6 @@ class Nation < ApplicationRecord
     resp = nb_client.call(:webhooks, :create, webhook_payload)
     resp.dig('webhook').dig('id')
   end
+
+  alias_attribute :name, :slug
 end

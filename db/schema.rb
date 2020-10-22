@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_02_071618) do
+ActiveRecord::Schema.define(version: 2020_10_20_084705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,43 @@ ActiveRecord::Schema.define(version: 2020_10_02_071618) do
     t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 
+  create_table "donations", force: :cascade do |t|
+    t.bigint "workflow_id"
+    t.datetime "succeeded_at"
+    t.integer "amount_cents", default: 0, null: false
+    t.string "amount_currency", default: "USD", null: false
+    t.integer "frequency"
+    t.string "external_id"
+    t.string "donor_external_id"
+    t.integer "donor_id"
+    t.jsonb "webhook_data"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "account_id", null: false
+    t.string "donation_source_type"
+    t.bigint "donation_source_id"
+    t.index ["account_id"], name: "index_donations_on_account_id"
+    t.index ["donation_source_id", "donation_source_type"], name: "index_donations_on_donation_source_id_and_donation_source_type"
+    t.index ["donor_id"], name: "index_donations_on_donor_id"
+    t.index ["workflow_id"], name: "index_donations_on_workflow_id"
+  end
+
+  create_table "flipper_features", force: :cascade do |t|
+    t.string "key", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["key"], name: "index_flipper_features_on_key", unique: true
+  end
+
+  create_table "flipper_gates", force: :cascade do |t|
+    t.string "feature_key", null: false
+    t.string "key", null: false
+    t.string "value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["feature_key", "key", "value"], name: "index_flipper_gates_on_feature_key_and_key_and_value", unique: true
+  end
+
   create_table "nations", force: :cascade do |t|
     t.string "slug"
     t.string "token"
@@ -51,6 +88,7 @@ ActiveRecord::Schema.define(version: 2020_10_02_071618) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
+    t.string "slug"
     t.index ["account_id"], name: "index_raisely_campaigns_on_account_id"
     t.index ["campaign_uuid"], name: "index_raisely_campaigns_on_campaign_uuid"
   end
@@ -111,6 +149,7 @@ ActiveRecord::Schema.define(version: 2020_10_02_071618) do
   add_foreign_key "account_users", "accounts"
   add_foreign_key "account_users", "users"
   add_foreign_key "accounts", "users"
+  add_foreign_key "donations", "accounts"
   add_foreign_key "nations", "accounts"
   add_foreign_key "raisely_campaigns", "accounts"
   add_foreign_key "workflows", "accounts"

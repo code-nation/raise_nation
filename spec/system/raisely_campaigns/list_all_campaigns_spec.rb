@@ -3,9 +3,24 @@ require 'rails_helper'
 RSpec.describe 'List all campaigns under an account', type: :system do
   let!(:user) { create(:user, :with_accounts) }
   let!(:account) { user.accounts.first }
-  let!(:campaign) { create(:raisely_campaign, account: account) }
-  let!(:campaign2) { create(:raisely_campaign, account: account) }
-  let!(:campaign3) { create(:raisely_campaign) }
+  let!(:campaign) do
+    camp = build(:raisely_campaign, account: account)
+    allow(camp).to receive(:set_raisely_slug).and_return(true)
+    camp.save
+    camp
+  end
+  let!(:campaign2) do
+    camp = build(:raisely_campaign, account: account)
+    allow(camp).to receive(:set_raisely_slug).and_return(true)
+    camp.save
+    camp
+  end
+  let!(:campaign3) do
+    camp = build(:raisely_campaign)
+    allow(camp).to receive(:set_raisely_slug).and_return(true)
+    camp.save
+    camp
+  end
 
   before(:each) do
     login_as(user, scope: :user)

@@ -21,6 +21,10 @@ RSpec.describe Accounts::RaiselyCampaignsController, type: :controller do
     let(:name) { Faker::Company.name }
     let(:api_key) { SecureRandom.uuid }
 
+    before(:each) do
+      allow_any_instance_of(RaiselyCampaign).to receive(:set_raisely_slug).and_return(true)
+    end
+
     it 'should create a nation' do
       post :create, params: {
         account_id: account.id,
@@ -38,6 +42,10 @@ RSpec.describe Accounts::RaiselyCampaignsController, type: :controller do
 
     describe 'existing campaign_uuid' do
       let!(:campaign) { create(:raisely_campaign, campaign_uuid: campaign_uuid) }
+
+      before(:each) do
+        allow_any_instance_of(RaiselyCampaign).to receive(:set_raisely_slug).and_return(true)
+      end
 
       it 'should create a nation' do
         post :create, params: {

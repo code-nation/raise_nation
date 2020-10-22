@@ -69,3 +69,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "chartkick"
 gem 'js-routes'
 gem 'faraday'
+gem 'money-rails'

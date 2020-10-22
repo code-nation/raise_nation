@@ -4,6 +4,7 @@ RSpec.describe Workflow, type: :model do
   it { should belong_to(:account) }
   it { should belong_to(:source) }
   it { should belong_to(:target) }
+  it { should have_many(:donations) }
 
   context 'Constants' do
     it 'DEFAULT_SOURCE_TYPE' do

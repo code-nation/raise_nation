@@ -1,0 +1,28 @@
+.card.shadow.mb-4
+  .card-header.py-3
+    %span.m-0.font-weight-bold.text-primary Donations
+
+  .card-body
+    - if donations.any?
+      .table-responsive
+        %table.raise-nation-datatable.table.table-bordered{:cellspacing => "0", :width => "100%"}
+          %thead
+            %tr
+              %th External ID
+              %th External Donor ID
+              %th Workflow
+              %th Amount
+              %th Succeeded At
+          %tbody
+            - donations.each do |donation|
+              %tr
+                %td
+                  = link_to donation.external_id, donation.external_donation_url
+                %td
+                  = link_to donation.donor_external_id, donation.external_donor_url
+                %td= donation.workflow_source_target
+                %td= donation.amount
+                %td{ data: { order: donation.succeeded_at } }
+                  = formatted_date(donation.succeeded_at)
+    - else
+      %span No donations yet.
