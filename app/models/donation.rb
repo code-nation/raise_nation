@@ -59,9 +59,5 @@ class Donation < ApplicationRecord
     source.update_column('slug', raisely_slug)
   end
 
-  def set_account
-    self.account = workflow.account
-  end
-
   alias external_base_url url
 end
