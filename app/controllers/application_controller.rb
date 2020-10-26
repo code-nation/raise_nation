@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def validate_account_presence!
-    return unless current_user.no_account?
+    return if current_user.has_account?
 
     redirect_to new_account_path, notice: 'In order to continue you need to create an account first.'
   end

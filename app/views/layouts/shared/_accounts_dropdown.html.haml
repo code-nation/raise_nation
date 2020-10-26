@@ -1,6 +1,4 @@
-- if current_user.no_account?
-  = link_to "Create new account", new_account_path, class: "btn btn-primary"
-- else
+- if current_user.has_account?
   .btn-group.pull-left
     %button.btn.btn-primary.dropdown-toggle.accounts-dropdown{"data-toggle" => "dropdown", :type => "button"}
       = current_account&.organisation_name
@@ -11,3 +9,5 @@
           = link_to account.organisation_name, settings_update_current_account_path(id: account.id), class: "dropdown-item", method: :put
         .dropdown-divider
       = link_to "Create a New Account", new_account_path, class: "dropdown-item"
+- else
+  = link_to "Create new account", new_account_path, class: "btn btn-primary"

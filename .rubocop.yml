@@ -63,6 +63,10 @@ Style/ExplicitBlockArgument:
   Enabled: false
 Style/SingleArgumentDig:
   Enabled: false
+Naming/PredicateName:
+  Enabled: true
+  Exclude:
+    - 'app/models/user.rb'
 
 AllCops:
   NewCops: enable

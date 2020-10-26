@@ -15,8 +15,8 @@ class User < ApplicationRecord
     accounts.first
   end
 
-  def no_account?
-    accounts.empty?
+  def has_account?
+    accounts.exists?
   end
 
   def receive_notifications?(account)

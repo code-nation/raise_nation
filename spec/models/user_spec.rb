@@ -22,10 +22,10 @@ RSpec.describe User, type: :model do
       end
     end
 
-    describe '#no_account?' do
+    describe '#has_account?' do
       let(:user) { create(:user) }
 
-      it { expect(user.no_account?).to eq true }
+      it { expect(user.has_account?).to eq false }
 
       context 'with account' do
         let(:user) do
@@ -33,7 +33,7 @@ RSpec.describe User, type: :model do
           acc.owner
         end
 
-        it { expect(user.no_account?).to eq false }
+        it { expect(user.has_account?).to eq true }
       end
     end
 
