@@ -13,3 +13,18 @@
 .connect-nation {
   font-size: 0.8em;
 }
+
+.card .card-body .alert {
+  margin-bottom: 0px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+.bg-login-image {
+  background: url("https://source.unsplash.com/u3ajSXhZM_U/600x800") !important;
+}
+.bg-register-image {
+  background: url("https://source.unsplash.com/eBRTYyjwpRY/600x800") !important;
+}
+.bg-password-image {
+  background: url("https://source.unsplash.com/HyTwtsk8XqA/600x800") !important;
+}
