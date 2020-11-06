@@ -22,7 +22,17 @@ class WebhooksController < ApplicationController
 
     return if source.nil? || workflow.nil?
 
-    workflow.generate_nation_donation!(nation_donation_params)
+    donor = Donor.find_or_initialize_by(
+      donor_type: :nationbuilder,
+      donor_external_id: nation_donor_params[:donor_id],
+    )
+
+    donor.donor_tags = workflow.donor_tags
+    donor.recurring_donor_tags = workflow.recurring_donor_tags
+    donor.donor_data = nation_donor_params
+    donor.save
+
+    workflow.generate_nation_donation!(nation_donation_params, donor: donor)
   end
 
   def process_raisely_donation!
@@ -31,11 +41,28 @@ class WebhooksController < ApplicationController
 
     return if source.nil? || workflow.nil?
 
-    workflow.generate_raisely_donation!(raisely_donation_params)
+    donor = Donor.find_or_initialize_by(
+      donor_type: :raisely,
+      donor_external_id: raisely_donor_params[:userUuid]
+    )
+    donor.donor_tags = workflow.donor_tags
+    donor.recurring_donor_tags = workflow.recurring_donor_tags
+    donor.donor_data = raisely_donor_params
+    donor.save
+
+    workflow.generate_raisely_donation!(raisely_donation_params, donor: donor)
   end
 
   def raisely_donation_params
     params.require(:data).permit(:source, data: {})[:data]
+  end
+
+  def raisely_donor_params
+    params.require(:data).permit(data: {})[:data].permit!
+  end
+
+  def nation_donor_params
+    params.require(:payload).permit(donation: {})[:donation].permit!
   end
 
   def nation_donation_params

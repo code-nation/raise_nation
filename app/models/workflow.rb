@@ -53,9 +53,10 @@ class Workflow < ApplicationRecord
     update(webhook_ref: webhook_ref) if webhook_ref.present?
   end
 
-  def generate_raisely_donation!(params)
+  def generate_raisely_donation!(params, donor:)
     donations.create!(webhook_data: params,
                       account: account,
+                      donor: donor,
                       donation_source: source,
                       succeeded_at: params['createdAt'],
                       amount_cents: params['amount'],
@@ -66,9 +67,10 @@ class Workflow < ApplicationRecord
                       donor_external_id: params['user']['uuid'])
   end
 
-  def generate_nation_donation!(params)
+  def generate_nation_donation!(params, donor:)
     donations.create!(webhook_data: params,
                       account: account,
+                      donor: donor,
                       donation_source: source,
                       succeeded_at: params[:succeeded_at],
                       amount_cents: params[:amount_in_cents],

@@ -1,6 +1,7 @@
 class Donation < ApplicationRecord
   belongs_to :workflow
   belongs_to :account
+  belongs_to :donor
   belongs_to :donation_source, polymorphic: true
 
   validates :webhook_data, presence: true
