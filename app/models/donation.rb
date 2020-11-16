@@ -21,6 +21,11 @@ class Donation < ApplicationRecord
   delegate :url, to: :donation_source
 
   after_create :update_raisely_slug!, if: :raisely_source?
+  after_save :sync_to_target!, unless: :synced?
+
+  def synced?
+    synced_at.present?
+  end
 
   def raisely_source?
     source.is_a?(RaiselyCampaign)
@@ -51,6 +56,10 @@ class Donation < ApplicationRecord
   end
 
   private
+
+  def sync_to_target!
+    workflow.sync_donation!(self)
+  end
 
   def update_raisely_slug!
     raisely_slug = webhook_data['profile']['path']
