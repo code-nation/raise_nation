@@ -74,12 +74,8 @@ class Workflow < ApplicationRecord
 
       target.nb_client.call(:donations, :create, donation_payload)
     elsif target.is_a?(RaiselyCampaign)
-      #donation_payload = {
-        #data: {
-          ## Since donation already been succeeded from NationBuilder
-          #type: 'OFFLINE',
-        #}
-      #}
+      target.sync_donor_data!(donation)
+      target.sync_donation_data!(donation)
     end
   end
 

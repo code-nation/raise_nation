@@ -32,7 +32,8 @@ class WebhooksController < ApplicationController
     donor.donor_data = nation_donor_params
     donor.save
 
-    workflow.generate_nation_donation!(nation_donation_params, donor: donor)
+    donation = workflow.generate_nation_donation!(nation_donation_params, donor: donor)
+    workflow.sync_donation!(donation)
   end
 
   def process_raisely_donation!
