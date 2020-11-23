@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_09_071303) do
+ActiveRecord::Schema.define(version: 2020_11_23_061719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(version: 2020_11_09_071303) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
     t.string "slug"
+    t.string "profile_uuid"
     t.index ["account_id"], name: "index_raisely_campaigns_on_account_id"
     t.index ["campaign_uuid"], name: "index_raisely_campaigns_on_campaign_uuid"
   end

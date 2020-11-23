@@ -29,5 +29,46 @@ class Nation < ApplicationRecord
     resp.dig('webhook').dig('id')
   end
 
+  def sync_donation!(donation)
+    person_id = sync_donor_data!(donation)['person']['id']
+    sync_donation_data!(donation, person_id)
+  end
+
+  def sync_donor_data!(donation)
+    # For nationbuilder processing
+    donor_data = donation.donor.donor_data
+    # Donor processing
+    # 
+    # Donor creation
+    donor_payload = {
+      person: {
+        email: donor_data.dig('user').dig('email'),
+        phone: donor_data.dig('user').dig('phoneNumber'),
+        first_name: donor_data.dig('user').dig('firstName'),
+        last_name: donor_data.dig('user').dig('lastName')
+      }
+    }
+
+    nb_client.call(:people, :push, donor_payload)
+  end
+
+  def sync_donation_data!(donation, person_id)
+    return if donation.synced_at.present?
+
+    donation_payload = {
+      donation: {
+        amount_in_cents: donation.amount_cents,
+        payment_type_name: 'Cash',
+        donor_id: person_id
+      }
+    }
+
+    resp = nb_client.call(:donations, :create, donation_payload)
+
+    if resp
+      donation.update(synced_at: DateTime.now)
+    end
+  end
+
   alias_attribute :name, :slug
 end

@@ -51,7 +51,8 @@ class WebhooksController < ApplicationController
     donor.donor_data = raisely_donor_params
     donor.save
 
-    workflow.generate_raisely_donation!(raisely_donation_params, donor: donor)
+    donation = workflow.generate_raisely_donation!(raisely_donation_params, donor: donor)
+    workflow.sync_donation!(donation)
   end
 
   def raisely_donation_params

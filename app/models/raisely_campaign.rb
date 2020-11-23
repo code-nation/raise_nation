@@ -18,7 +18,7 @@ class RaiselyCampaign < ApplicationRecord
   API_URL_V2 = (BASE_API_URL + '/v2').freeze
   WEBHOOK_API_URL = "#{API_URL_V3}/webhooks".freeze
 
-  before_save :set_raisely_slug
+  before_save :set_raisely_slug_and_profile_uuid
 
   def self.query_attr
     'name'
@@ -40,6 +40,11 @@ class RaiselyCampaign < ApplicationRecord
 
   def url
     "https://admin.raisely.com/campaigns/#{slug}"
+  end
+
+  def sync_donation!(donation)
+    sync_donor_data!(donation)
+    sync_donation_data!(donation)
   end
 
   def sync_donor_data!(donation)
@@ -65,22 +70,25 @@ class RaiselyCampaign < ApplicationRecord
       merge: true
     }.to_json
 
-    http.request(request)
+    resp = http.request(request)
+    resp
   end
 
   def sync_donation_data!(donation)
+    return if donation.synced_at.present?
+
     donor_data = donation.donor.donor_data
 
     donation_payload = {
       data: {
         # Since donation already been succeeded from NationBuilder
         type: 'OFFLINE',
-        amount: donation.amount.to_s,
+        amount: donation.amount_cents,
         currency: donation.amount_currency,
         firstName: donor_data['donor']['first_name'],
         lastName: donor_data['donor']['last_name'],
         email: donor_data['donor']['email'],
-        profieUuid: campaign_uuid
+        profileUuid: profile_uuid
       }
     }.to_json
 
@@ -94,19 +102,24 @@ class RaiselyCampaign < ApplicationRecord
     request["Content-Type"] = 'application/json'
     request["Authorization"] = "Bearer #{api_key}"
     request.body = donation_payload
+    resp = http.request(request)
 
-    http.request(request)
+    if resp.kind_of?(Net::HTTPOK)
+      donation.update(synced_at: DateTime.now)
+    end
   end
 
   private
 
-  def set_raisely_slug
+  def set_raisely_slug_and_profile_uuid
     resp = Faraday.get(RaiselyCampaign::API_URL_V3 + "/campaigns/#{campaign_uuid}") do |req|
       req.headers['Content-Type'] = 'application/json'
       req.headers['Authorization'] = "Bearer #{api_key}"
     end
+    response_hash = JSON.parse(resp.body).dig('data')
 
-    self.slug = JSON.parse(resp.body).dig('data').dig('path')
+    self.profile_uuid = response_hash.dig('profile').dig('uuid')
+    self.slug = response_hash.dig('path')
   end
 
   def webhook_payload(webhook_url)

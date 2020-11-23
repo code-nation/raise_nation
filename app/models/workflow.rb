@@ -47,36 +47,7 @@ class Workflow < ApplicationRecord
   end
 
   def sync_donation!(donation)
-    if target.is_a?(Nation)
-      # For nationbuilder processing
-      donor_data = donation.donor.donor_data
-      # Donor processing
-      # 
-      # Donor creation
-      donor_payload = {
-        person: {
-          email: donor_data.dig('user').dig('email'),
-          phone: donor_data.dig('user').dig('phoneNumber'),
-          first_name: donor_data.dig('user').dig('firstName'),
-          last_name: donor_data.dig('user').dig('lastName')
-        }
-      }
-
-      donor_data = target.nb_client.call(:people, :push, donor_payload)
-
-      donation_payload = {
-        donation: {
-          amount_in_cents: donation.amount_cents,
-          payment_type_name: 'Cash',
-          donor_id: donor_data['person']['id']
-        }
-      }
-
-      target.nb_client.call(:donations, :create, donation_payload)
-    elsif target.is_a?(RaiselyCampaign)
-      target.sync_donor_data!(donation)
-      target.sync_donation_data!(donation)
-    end
+    target.sync_donation!(donation)
   end
 
   def process_webhook!(url)
