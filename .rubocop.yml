@@ -63,6 +63,10 @@ Style/ExplicitBlockArgument:
   Enabled: false
 Style/SingleArgumentDig:
   Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+Metrics/AbcSize:
+  Enabled: false
 Naming/PredicateName:
   Enabled: true
   Exclude:

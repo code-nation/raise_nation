@@ -14,8 +14,8 @@ class RaiselyCampaign < ApplicationRecord
 
   DONATION_CREATED = 'donation.created'.freeze
   BASE_API_URL = 'https://api.raisely.com'.freeze
-  API_URL_V3 = (BASE_API_URL + '/v3').freeze
-  API_URL_V2 = (BASE_API_URL + '/v2').freeze
+  API_URL_V3 = "#{BASE_API_URL}/v3".freeze
+  API_URL_V2 = "#{BASE_API_URL}/v2".freeze
   WEBHOOK_API_URL = "#{API_URL_V3}/webhooks".freeze
 
   before_save :set_raisely_slug_and_profile_uuid
@@ -50,15 +50,15 @@ class RaiselyCampaign < ApplicationRecord
   def sync_donor_data!(donation)
     donor_data = donation.donor.donor_data
 
-    url = URI(RaiselyCampaign::API_URL_V3 + "/users?private=false")
+    url = URI("#{RaiselyCampaign::API_URL_V3}/users?private=false")
 
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
     request = Net::HTTP::Post.new(url)
-    request["Content-Type"] = 'application/json'
-    request["Authorization"] = "Bearer #{api_key}"
+    request['Content-Type'] = 'application/json'
+    request['Authorization'] = "Bearer #{api_key}"
     request.body = {
       data: {
         email: donor_data['donor']['email'],
@@ -70,8 +70,7 @@ class RaiselyCampaign < ApplicationRecord
       merge: true
     }.to_json
 
-    resp = http.request(request)
-    resp
+    http.request(request)
   end
 
   def sync_donation_data!(donation)
@@ -92,21 +91,20 @@ class RaiselyCampaign < ApplicationRecord
       }
     }.to_json
 
-    url = URI(RaiselyCampaign::API_URL_V3 + "/donations")
+    url = URI("#{RaiselyCampaign::API_URL_V3}/donations")
 
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
     request = Net::HTTP::Post.new(url)
-    request["Content-Type"] = 'application/json'
-    request["Authorization"] = "Bearer #{api_key}"
+    request['Content-Type'] = 'application/json'
+    request['Authorization'] = "Bearer #{api_key}"
     request.body = donation_payload
-    resp = http.request(request)
 
-    if resp.kind_of?(Net::HTTPOK)
-      donation.update(synced_at: DateTime.now)
-    end
+    return unless http.request(request).is_a?(Net::HTTPOK)
+
+    donation.update(synced_at: DateTime.now)
   end
 
   private

@@ -35,11 +35,8 @@ class Nation < ApplicationRecord
   end
 
   def sync_donor_data!(donation)
-    # For nationbuilder processing
     donor_data = donation.donor.donor_data
-    # Donor processing
-    # 
-    # Donor creation
+
     donor_payload = {
       person: {
         email: donor_data.dig('user').dig('email'),
@@ -63,11 +60,9 @@ class Nation < ApplicationRecord
       }
     }
 
-    resp = nb_client.call(:donations, :create, donation_payload)
+    return unless nb_client.call(:donations, :create, donation_payload)
 
-    if resp
-      donation.update(synced_at: DateTime.now)
-    end
+    donation.update(synced_at: DateTime.now)
   end
 
   alias_attribute :name, :slug

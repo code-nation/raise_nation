@@ -24,7 +24,7 @@ class WebhooksController < ApplicationController
 
     donor = Donor.find_or_initialize_by(
       donor_type: :nationbuilder,
-      donor_external_id: nation_donor_params[:donor_id],
+      donor_external_id: nation_donor_params[:donor_id]
     )
 
     donor.donor_tags = workflow.donor_tags

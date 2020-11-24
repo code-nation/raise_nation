@@ -24,6 +24,8 @@ class Workflow < ApplicationRecord
 
   validates :source_id, uniqueness: { scope: [:source_type, :target_id, :target_type] }
 
+  delegate :sync_donation!, to: :target
+
   def source_type
     return DEFAULT_SOURCE_TYPE if type.blank?
 
@@ -44,10 +46,6 @@ class Workflow < ApplicationRecord
     when 'rn'
       DEFAULT_SOURCE_TYPE
     end
-  end
-
-  def sync_donation!(donation)
-    target.sync_donation!(donation)
   end
 
   def process_webhook!(url)
