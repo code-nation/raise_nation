@@ -22,7 +22,7 @@ RSpec.describe Accounts::RaiselyCampaignsController, type: :controller do
     let(:api_key) { SecureRandom.uuid }
 
     before(:each) do
-      allow_any_instance_of(RaiselyCampaign).to receive(:set_raisely_slug).and_return(true)
+      allow_any_instance_of(RaiselyCampaign).to receive(:set_raisely_slug_and_profile_uuid).and_return(true)
     end
 
     it 'should create a nation' do
@@ -44,7 +44,7 @@ RSpec.describe Accounts::RaiselyCampaignsController, type: :controller do
       let!(:campaign) { create(:raisely_campaign, campaign_uuid: campaign_uuid) }
 
       before(:each) do
-        allow_any_instance_of(RaiselyCampaign).to receive(:set_raisely_slug).and_return(true)
+        allow_any_instance_of(RaiselyCampaign).to receive(:set_raisely_slug_and_profile_uuid).and_return(true)
       end
 
       it 'should create a nation' do

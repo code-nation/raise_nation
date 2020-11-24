@@ -5,19 +5,19 @@ RSpec.describe 'List all campaigns under an account', type: :system do
   let!(:account) { user.accounts.first }
   let!(:campaign) do
     camp = build(:raisely_campaign, account: account)
-    allow(camp).to receive(:set_raisely_slug).and_return(true)
+    allow(camp).to receive(:set_raisely_slug_and_profile_uuid).and_return(true)
     camp.save
     camp
   end
   let!(:campaign2) do
     camp = build(:raisely_campaign, account: account)
-    allow(camp).to receive(:set_raisely_slug).and_return(true)
+    allow(camp).to receive(:set_raisely_slug_and_profile_uuid).and_return(true)
     camp.save
     camp
   end
   let!(:campaign3) do
     camp = build(:raisely_campaign)
-    allow(camp).to receive(:set_raisely_slug).and_return(true)
+    allow(camp).to receive(:set_raisely_slug_and_profile_uuid).and_return(true)
     camp.save
     camp
   end

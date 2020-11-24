@@ -4,7 +4,7 @@ RSpec.describe RaiselyCampaign, type: :model do
   subject { build(:raisely_campaign) }
 
   before(:each) do
-    allow_any_instance_of(RaiselyCampaign).to receive(:set_raisely_slug).and_return(true)
+    allow_any_instance_of(RaiselyCampaign).to receive(:set_raisely_slug_and_profile_uuid).and_return(true)
   end
 
   it { should belong_to(:account) }
