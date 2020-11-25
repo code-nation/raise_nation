@@ -35,6 +35,7 @@ gem 'rubocop-rails', require: false
 gem 'sendgrid-ruby'
 gem 'oauth2'
 gem 'nationbuilder-rb', require: 'nationbuilder'
+gem 'sidekiq'
 
 group :test do
   gem 'shoulda-matchers', '~> 4.1', '>= 4.1.2'
