@@ -9,7 +9,7 @@ class Donation < ApplicationRecord
   enum frequency: { one_off: 0, recurring: 1 }, _prefix: true
 
   # Moved here since enum should be loaded first
-  DEFAULT_CURRENCY = 'USD'.freeze
+  DEFAULT_CURRENCY = 'AUD'.freeze
   RAISELY_DONATION_PROCESSING_STATUSES = {
     'ONCE' => Donation.frequencies['one_off'],
     'RECURRING' => Donation.frequencies['recurring']

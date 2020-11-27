@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_26_094042) do
+ActiveRecord::Schema.define(version: 2020_11_27_073030) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 2020_11_26_094042) do
     t.jsonb "donor_data"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["donor_type", "donor_external_id"], name: "index_donors_on_donor_type_and_donor_external_id", unique: true
   end
 
   create_table "flipper_features", force: :cascade do |t|
