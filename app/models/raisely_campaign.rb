@@ -48,7 +48,8 @@ class RaiselyCampaign < ApplicationRecord
   end
 
   def sync_donor_data!(donation)
-    donor_data = donation.donor.donor_data
+    donor = donation.donor
+    donor_data = donor.donor_data
 
     url = URI("#{RaiselyCampaign::API_URL_V3}/users?private=false")
 
@@ -70,11 +71,16 @@ class RaiselyCampaign < ApplicationRecord
       merge: true
     }.to_json
 
-    http.request(request)
+    resp = JSON.parse(http.request(request).body).dig('data')
+    donor.update(
+      synced_external_id: resp['uuid'],
+      synced_data: resp
+    )
+    resp
   end
 
   def sync_donation_data!(donation)
-    return if donation.synced_at.present?
+    return if donation.synced?
 
     donor_data = donation.donor.donor_data
 
@@ -102,9 +108,17 @@ class RaiselyCampaign < ApplicationRecord
     request['Authorization'] = "Bearer #{api_key}"
     request.body = donation_payload
 
-    return unless http.request(request).is_a?(Net::HTTPOK)
+    resp = http.request(request)
 
-    donation.update(synced_at: DateTime.now)
+    return unless resp.is_a?(Net::HTTPOK)
+
+    data = JSON.parse(resp.body).dig('data')
+
+    donation.update(
+      synced_at: DateTime.now,
+      synced_data: data,
+      synced_external_id: data['uuid']
+    )
   end
 
   private

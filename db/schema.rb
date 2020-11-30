@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_27_073030) do
+ActiveRecord::Schema.define(version: 2020_11_30_102819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,8 @@ ActiveRecord::Schema.define(version: 2020_11_27_073030) do
     t.string "donation_tracking_slug"
     t.string "recurring_donation_tracking_slug"
     t.datetime "synced_at"
+    t.string "synced_external_id"
+    t.jsonb "synced_data"
     t.index ["account_id"], name: "index_donations_on_account_id"
     t.index ["donation_source_id", "donation_source_type"], name: "index_donations_on_donation_source_id_and_donation_source_type"
     t.index ["donor_id"], name: "index_donations_on_donor_id"
@@ -66,6 +68,10 @@ ActiveRecord::Schema.define(version: 2020_11_27_073030) do
     t.jsonb "donor_data"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "account_id"
+    t.string "synced_external_id"
+    t.jsonb "synced_data"
+    t.index ["account_id"], name: "index_donors_on_account_id"
     t.index ["donor_type", "donor_external_id"], name: "index_donors_on_donor_type_and_donor_external_id", unique: true
   end
 

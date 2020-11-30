@@ -35,22 +35,34 @@ class Nation < ApplicationRecord
   end
 
   def sync_donor_data!(donation)
-    donor_data = donation.donor.donor_data
+    donor = donation.donor
+    donor_data = donor.donor_data
+    tags = if donation.frequency_one_off?
+             donor.donor_tags
+           elsif donation.frequency_recurring?
+             donor.recurring_donor_tags
+           end
 
     donor_payload = {
       person: {
         email: donor_data.dig('user').dig('email'),
         phone: donor_data.dig('user').dig('phoneNumber'),
         first_name: donor_data.dig('user').dig('firstName'),
-        last_name: donor_data.dig('user').dig('lastName')
+        last_name: donor_data.dig('user').dig('lastName'),
+        tags: tags
       }
     }
 
-    nb_client.call(:people, :push, donor_payload)
+    resp = nb_client.call(:people, :push, donor_payload)
+    donor.update(
+      synced_external_id: resp['person']['id'],
+      synced_data: resp
+    )
+    resp
   end
 
   def sync_donation_data!(donation, person_id)
-    return if donation.synced_at.present?
+    return if donation.synced?
 
     donation_payload = {
       donation: {
@@ -60,9 +72,15 @@ class Nation < ApplicationRecord
       }
     }
 
-    return unless nb_client.call(:donations, :create, donation_payload)
+    data = nb_client.call(:donations, :create, donation_payload)
 
-    donation.update(synced_at: DateTime.now)
+    return unless data
+
+    donation.update(
+      synced_at: DateTime.now,
+      synced_data: data['donation'],
+      synced_external_id: data['donation']['id']
+    )
   end
 
   alias_attribute :name, :slug

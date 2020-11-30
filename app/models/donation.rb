@@ -21,7 +21,7 @@ class Donation < ApplicationRecord
   delegate :url, to: :donation_source
 
   after_create :update_raisely_slug!, if: :raisely_source?
-  after_save :sync_to_target!, unless: :synced?
+  after_create :sync_to_target!, unless: :synced?
 
   def synced?
     synced_at.present?

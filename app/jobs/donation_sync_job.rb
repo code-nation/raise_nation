@@ -1,6 +1,6 @@
 class DonationSyncJob < ApplicationJob
   queue_as :workflow
-  sidekiq_options retry: 3
+  #sidekiq_options retry: 0
 
   def perform(workflow_id, donation_id)
     workflow = Workflow.find(workflow_id)

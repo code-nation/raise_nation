@@ -23,18 +23,19 @@ class WebhooksController < ApplicationController
     return if source.nil? || workflow.nil?
 
     donor = Donor.find_or_initialize_by(
+      account: workflow.account,
       donor_type: :nationbuilder,
-      donor_external_id: nation_donor_params[:donor_id]
+      donor_external_id: nation_donation_params[:donor_id]
     )
 
     donor.donor_tags = workflow.donor_tags
     donor.recurring_donor_tags = workflow.recurring_donor_tags
-    donor.donor_data = nation_donor_params
+    donor.donor_data = nation_donation_params
     donor.save
 
     donation = workflow.generate_nation_donation!(nation_donation_params, donor: donor)
 
-    DonationSyncJob.perform_later(worflow.id, donation.id)
+    DonationSyncJob.perform_later(workflow.id, donation.id)
   end
 
   def process_raisely_donation!
@@ -44,6 +45,7 @@ class WebhooksController < ApplicationController
     return if source.nil? || workflow.nil?
 
     donor = Donor.find_or_initialize_by(
+      account: workflow.account,
       donor_type: :raisely,
       donor_external_id: raisely_donor_params[:userUuid]
     )
@@ -53,7 +55,8 @@ class WebhooksController < ApplicationController
     donor.save
 
     donation = workflow.generate_raisely_donation!(raisely_donation_params, donor: donor)
-    DonationSyncJob.perform_later(worflow.id, donation.id)
+
+    DonationSyncJob.perform_later(workflow.id, donation.id)
   end
 
   def raisely_donation_params
@@ -62,10 +65,6 @@ class WebhooksController < ApplicationController
 
   def raisely_donor_params
     params.require(:data).permit(data: {})[:data].permit!
-  end
-
-  def nation_donor_params
-    params.require(:payload).permit(donation: {})[:donation].permit!
   end
 
   def nation_donation_params
