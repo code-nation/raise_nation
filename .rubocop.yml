@@ -71,6 +71,8 @@ Naming/PredicateName:
   Enabled: true
   Exclude:
     - 'app/models/user.rb'
+Metrics/ClassLength:
+  Max: 120
 
 AllCops:
   NewCops: enable
