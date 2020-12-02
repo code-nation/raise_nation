@@ -68,7 +68,8 @@ class Nation < ApplicationRecord
       donation: {
         amount_in_cents: donation.amount_cents,
         payment_type_name: 'Cash',
-        donor_id: person_id
+        donor_id: person_id,
+        tracking_code_slug: donation.tracking_code_slug
       }
     }
 

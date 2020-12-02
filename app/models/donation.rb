@@ -23,6 +23,14 @@ class Donation < ApplicationRecord
   after_create :update_raisely_slug!, if: :raisely_source?
   after_create :sync_to_target!, unless: :synced?
 
+  def tracking_code_slug
+    if frequency_recurring?
+      workflow.recurring_donation_tracking_slug
+    elsif frequency_one_off?
+      workflow.donation_tracking_slug
+    end
+  end
+
   def synced?
     synced_at.present?
   end

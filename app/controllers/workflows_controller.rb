@@ -24,6 +24,8 @@ class WorkflowsController < ApplicationController
 
   def workflow_params
     params.require(:workflow).permit(:source_id, :target_id, :source_type, :target_type,
-                                     :name, :is_active, donor_tags: [], recurring_donor_tags: [])
+                                     :name, :is_active, :donation_tracking_slug,
+                                     :recurring_donation_tracking_slug,
+                                     donor_tags: [], recurring_donor_tags: [])
   end
 end

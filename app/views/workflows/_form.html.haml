@@ -12,6 +12,9 @@
       = f.select :target_id, [], {}, { class: 'ajax-select2', 'data-ajax--url' => workflows_choices_path(workflow_type: 'nr', kind: 'target'), 'data-ajax--delay' => 250 }
       = f.select :donor_tags, [], {}, { class: 'token-select2', multiple: true }
       = f.select :recurring_donor_tags, [], {}, { class: 'token-select2', multiple: true }
+      .tracking-slug-fields
+        = f.text_field :donation_tracking_slug, class: "form-control"
+        = f.text_field :recurring_donation_tracking_slug, class: "form-control"
       %small (Separate tags by Comma or Enter key)
       -#= f.check_box :is_active
       = f.submit "Save", class: "btn btn-primary btn-lg btn-block"
@@ -26,11 +29,13 @@
         $('select[name="workflow[target_id]"]').data('ajax-Url', Routes.workflows_choices_path({ workflow_type: 'nr', kind: 'target' }));
         $('input[name="workflow[source_type]"]').val('Nation');
         $('input[name="workflow[target_type]"]').val('RaiselyCampaign');
+        $('.tracking-slug-fields').hide();
       } else if (currentType == 'rn') {
         $('select[name="workflow[source_id]"]').data('ajax-Url', Routes.workflows_choices_path({ workflow_type: 'rn', kind: 'source' }))
         $('select[name="workflow[target_id]"]').data('ajax-Url', Routes.workflows_choices_path({ workflow_type: 'rn', kind: 'target' }))
         $('input[name="workflow[source_type]"]').val('RaiselyCampaign');
         $('input[name="workflow[target_type]"]').val('Nation');
+        $('.tracking-slug-fields').show();
       }
 
       $('.ajax-select2').trigger('ajaxurl:changed');
