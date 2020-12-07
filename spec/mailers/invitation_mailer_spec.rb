@@ -21,11 +21,12 @@ RSpec.describe InvitationMailer, type: :mailer do
     end
 
     it 'renders the body' do
+      escaped_org_name = ERB::Util.html_escape(org_name)
       expect(mail.body.encoded).to match(
-        /You have been added by #{inviter_name} to collaborate in the RaiseNation account for #{ERB::Util.html_escape(org_name)}/
+        /You have been added by #{inviter_name} to collaborate in the RaiseNation account for #{escaped_org_name}/
       )
       expect(mail.body.encoded).not_to match(
-        /Click on the link belo to set your password/
+        /Click on the link below to set your password/
       )
     end
 
