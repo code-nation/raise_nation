@@ -55,6 +55,8 @@ class Workflow < ApplicationRecord
     update(webhook_ref: webhook_ref) if webhook_ref.present?
   end
 
+  # TODO: use find_or_initialize_by so we can handle donation updated webhooks in future
+  # (unique by account, donation_source and external_id)
   def generate_raisely_donation!(params, donor:)
     donations.create!(webhook_data: params,
                       account: account,
@@ -69,6 +71,8 @@ class Workflow < ApplicationRecord
                       donor_external_id: params['user']['uuid'])
   end
 
+  # TODO: use find_or_initialize_by so we can handle donation updated webhooks in future
+  # (unique by account, donation_source and external_id)
   def generate_nation_donation!(params, donor:)
     donations.create!(webhook_data: params,
                       account: account,

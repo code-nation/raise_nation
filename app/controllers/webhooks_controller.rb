@@ -11,7 +11,7 @@ class WebhooksController < ApplicationController
   def process_donation!
     if params[:nation_slug].present?
       process_nation_donation!
-    elsif params[:data][:source].present?
+    elsif params.dig(:data, :source).present?
       process_raisely_donation!
     end
   end

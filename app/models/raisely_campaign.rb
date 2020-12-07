@@ -35,7 +35,7 @@ class RaiselyCampaign < ApplicationRecord
       req.body = webhook_payload(webhook_url)
     end
 
-    JSON.parse(resp.body).dig('data').dig('uuid')
+    JSON.parse(resp.body).dig('data', 'uuid')
   end
 
   def url
@@ -130,7 +130,7 @@ class RaiselyCampaign < ApplicationRecord
     end
     response_hash = JSON.parse(resp.body).dig('data')
 
-    self.profile_uuid = response_hash.dig('profile').dig('uuid')
+    self.profile_uuid = response_hash.dig('profile', 'uuid')
     self.slug = response_hash.dig('path')
   end
 

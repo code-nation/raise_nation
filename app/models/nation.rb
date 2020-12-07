@@ -26,7 +26,7 @@ class Nation < ApplicationRecord
       }
     }
     resp = nb_client.call(:webhooks, :create, webhook_payload)
-    resp.dig('webhook').dig('id')
+    resp.dig('webhook', 'id')
   end
 
   def sync_donation!(donation)
@@ -45,10 +45,10 @@ class Nation < ApplicationRecord
 
     donor_payload = {
       person: {
-        email: donor_data.dig('user').dig('email'),
-        phone: donor_data.dig('user').dig('phoneNumber'),
-        first_name: donor_data.dig('user').dig('firstName'),
-        last_name: donor_data.dig('user').dig('lastName'),
+        email: donor_data.dig('user', 'email'),
+        phone: donor_data.dig('user', 'phoneNumber'),
+        first_name: donor_data.dig('user', 'firstName'),
+        last_name: donor_data.dig('user', 'lastName'),
         tags: tags
       }
     }
