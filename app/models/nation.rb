@@ -56,7 +56,7 @@ class Nation < ApplicationRecord
     resp = nb_client.call(:people, :push, donor_payload)
     donor.update(
       synced_external_id: resp['person']['id'],
-      synced_data: resp
+      synced_data: resp['person']
     )
     resp
   end
