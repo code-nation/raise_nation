@@ -63,13 +63,16 @@ class Nation < ApplicationRecord
 
   def sync_donation_data!(donation, person_id)
     return if donation.synced?
+    return if donation.succeeded_at.nil?
+    return if donation.payment_type_name.nil?
 
     donation_payload = {
       donation: {
         amount_in_cents: donation.amount_cents,
-        payment_type_name: 'Cash',
+        payment_type_name: donation.payment_type_name,
         donor_id: person_id,
-        tracking_code_slug: donation.tracking_code_slug
+        tracking_code_slug: donation.tracking_code_slug,
+        succeeded_at: donation.succeeded_at
       }
     }
 
