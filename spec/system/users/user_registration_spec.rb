@@ -8,7 +8,7 @@ RSpec.describe 'User Registration', type: :system do
   let(:last_name) { Faker::Name.first_name }
 
   before(:each) do
-    visit '/users/sign_up'
+    visit new_user_registration_path
     find('input#user_first_name').set(first_name)
     find('input#user_last_name').set(last_name)
     find('input#user_email').set(email)
@@ -43,7 +43,7 @@ RSpec.describe 'User Registration', type: :system do
     it_behaves_like 'unsuccessful sign up'
   end
 
-  describe 'unmatched password and password confirm' do
+  describe 'password does not match password confirmation' do
     let(:password_confirm) { 'incorrectpassword' }
 
     it_behaves_like 'unsuccessful sign up'

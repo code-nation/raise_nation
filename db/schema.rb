@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_20_084705) do
+ActiveRecord::Schema.define(version: 2020_12_02_063641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,10 +49,30 @@ ActiveRecord::Schema.define(version: 2020_10_20_084705) do
     t.bigint "account_id", null: false
     t.string "donation_source_type"
     t.bigint "donation_source_id"
+    t.string "donation_tracking_slug"
+    t.string "recurring_donation_tracking_slug"
+    t.datetime "synced_at"
+    t.string "synced_external_id"
+    t.jsonb "synced_data"
     t.index ["account_id"], name: "index_donations_on_account_id"
     t.index ["donation_source_id", "donation_source_type"], name: "index_donations_on_donation_source_id_and_donation_source_type"
     t.index ["donor_id"], name: "index_donations_on_donor_id"
     t.index ["workflow_id"], name: "index_donations_on_workflow_id"
+  end
+
+  create_table "donors", force: :cascade do |t|
+    t.integer "donor_type"
+    t.string "donor_tags", default: [], array: true
+    t.string "recurring_donor_tags", default: [], array: true
+    t.string "donor_external_id"
+    t.jsonb "donor_data"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "account_id"
+    t.string "synced_external_id"
+    t.jsonb "synced_data"
+    t.index ["account_id"], name: "index_donors_on_account_id"
+    t.index ["donor_type", "donor_external_id"], name: "index_donors_on_donor_type_and_donor_external_id", unique: true
   end
 
   create_table "flipper_features", force: :cascade do |t|
@@ -89,6 +109,7 @@ ActiveRecord::Schema.define(version: 2020_10_20_084705) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
     t.string "slug"
+    t.string "profile_uuid"
     t.index ["account_id"], name: "index_raisely_campaigns_on_account_id"
     t.index ["campaign_uuid"], name: "index_raisely_campaigns_on_campaign_uuid"
   end
@@ -119,6 +140,7 @@ ActiveRecord::Schema.define(version: 2020_10_20_084705) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
+    t.boolean "admin"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
@@ -141,6 +163,8 @@ ActiveRecord::Schema.define(version: 2020_10_20_084705) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "webhook_ref"
+    t.string "donation_tracking_slug"
+    t.string "recurring_donation_tracking_slug"
     t.index ["account_id"], name: "index_workflows_on_account_id"
     t.index ["source_type", "source_id"], name: "index_workflows_on_source_type_and_source_id"
     t.index ["target_type", "target_id"], name: "index_workflows_on_target_type_and_target_id"

@@ -24,6 +24,8 @@ class Workflow < ApplicationRecord
 
   validates :source_id, uniqueness: { scope: [:source_type, :target_id, :target_type] }
 
+  delegate :sync_donation!, to: :target
+
   def source_type
     return DEFAULT_SOURCE_TYPE if type.blank?
 
@@ -53,9 +55,12 @@ class Workflow < ApplicationRecord
     update(webhook_ref: webhook_ref) if webhook_ref.present?
   end
 
-  def generate_raisely_donation!(params)
+  # TODO: use find_or_initialize_by so we can handle donation updated webhooks in future
+  # (unique by account, donation_source and external_id)
+  def generate_raisely_donation!(params, donor:)
     donations.create!(webhook_data: params,
                       account: account,
+                      donor: donor,
                       donation_source: source,
                       succeeded_at: params['createdAt'],
                       amount_cents: params['amount'],
@@ -66,9 +71,12 @@ class Workflow < ApplicationRecord
                       donor_external_id: params['user']['uuid'])
   end
 
-  def generate_nation_donation!(params)
+  # TODO: use find_or_initialize_by so we can handle donation updated webhooks in future
+  # (unique by account, donation_source and external_id)
+  def generate_nation_donation!(params, donor:)
     donations.create!(webhook_data: params,
                       account: account,
+                      donor: donor,
                       donation_source: source,
                       succeeded_at: params[:succeeded_at],
                       amount_cents: params[:amount_in_cents],

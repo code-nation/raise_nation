@@ -1,6 +1,7 @@
 class Donation < ApplicationRecord
   belongs_to :workflow
   belongs_to :account
+  belongs_to :donor
   belongs_to :donation_source, polymorphic: true
 
   validates :webhook_data, presence: true
@@ -8,7 +9,7 @@ class Donation < ApplicationRecord
   enum frequency: { one_off: 0, recurring: 1 }, _prefix: true
 
   # Moved here since enum should be loaded first
-  DEFAULT_CURRENCY = 'USD'.freeze
+  DEFAULT_CURRENCY = 'AUD'.freeze
   RAISELY_DONATION_PROCESSING_STATUSES = {
     'ONCE' => Donation.frequencies['one_off'],
     'RECURRING' => Donation.frequencies['recurring']
@@ -20,6 +21,28 @@ class Donation < ApplicationRecord
   delegate :url, to: :donation_source
 
   after_create :update_raisely_slug!, if: :raisely_source?
+
+  def tracking_code_slug
+    if frequency_recurring?
+      workflow.recurring_donation_tracking_slug
+    elsif frequency_one_off?
+      workflow.donation_tracking_slug
+    end
+  end
+
+  # For Raisely to Nation
+  def payment_type_name
+    case webhook_data['type']
+    when 'OFFLINE'
+      'Cash'
+    when 'ONLINE'
+      'Credit Card'
+    end
+  end
+
+  def synced?
+    synced_at.present?
+  end
 
   def raisely_source?
     source.is_a?(RaiselyCampaign)
@@ -50,6 +73,10 @@ class Donation < ApplicationRecord
   end
 
   private
+
+  def sync_to_target!
+    workflow.sync_donation!(self)
+  end
 
   def update_raisely_slug!
     raisely_slug = webhook_data['profile']['path']

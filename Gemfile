@@ -35,6 +35,7 @@ gem 'rubocop-rails', require: false
 gem 'sendgrid-ruby'
 gem 'oauth2'
 gem 'nationbuilder-rb', require: 'nationbuilder'
+gem 'sidekiq'
 
 group :test do
   gem 'shoulda-matchers', '~> 4.1', '>= 4.1.2'
@@ -42,9 +43,8 @@ group :test do
 end
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry'
-  gem 'dotenv-rails'
+  gem 'dotenv-rails', require: 'dotenv/rails-now'
   # bug on Rails 6 so using a custom version working
   gem 'rspec-rails', '4.0.0.beta3'
   gem 'rails-controller-testing'
